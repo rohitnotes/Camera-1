@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Camera</string>
+    <string name="photo_saved">Photo saved: %1$s</string>
+    <string name="cannot_show_camera">Cannot show image from camera: PERMISSION DENIED</string>
+    <string name="cannot_save_photo">Cannot save photo: PERMISSION DENIED</string>
+    <string name="iv_description_camera_change">Camera change button</string>
+    <string name="iv_description_open_gallery">Open gallery</string>
+</resources>

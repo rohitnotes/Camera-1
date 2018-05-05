@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+def globalConf = rootProject.ext
+
+android {
+    compileSdkVersion globalConf.compileSdkVersion
+    buildToolsVersion globalConf.buildToolsVersion
+
+    defaultConfig {
+        applicationId globalConf.applicationId
+        minSdkVersion globalConf.minSdkVersion
+        targetSdkVersion globalConf.targetSdkVersion
+        versionCode globalConf.versionCode
+        versionName globalConf.versionName
+        vectorDrawables.useSupportLibrary = true
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    Map<String, String> dependencies = globalConf.dependencies
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation dependencies.kotlin
+    implementation dependencies.kotlinJDK7
+    implementation dependencies.constrainLayout
+    implementation dependencies.appCompat
+
+    testImplementation dependencies.junit
+    androidTestImplementation(dependencies.espresso) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+}
