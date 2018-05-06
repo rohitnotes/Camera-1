@@ -1,8 +1,9 @@
-package xyz.romakononovich.camera
+package xyz.romakononovich.camera.utils
 
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import java.io.File
 
 /**
  * Created by RomanK on 05.05.18.
@@ -21,3 +22,5 @@ fun Context.toast(message: CharSequence): Toast = Toast
         .apply {
             show()
         }
+
+fun getStorage(context: Context) =  File(context.filesDir, ALBUM_NAME)

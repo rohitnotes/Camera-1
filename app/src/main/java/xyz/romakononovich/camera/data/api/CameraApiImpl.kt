@@ -4,7 +4,7 @@ import android.hardware.Camera
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import xyz.romakononovich.camera.catchAll
+import xyz.romakononovich.camera.utils.catchAll
 import xyz.romakononovich.camera.data.executor.MainThreadImpl
 import xyz.romakononovich.camera.data.model.FlashMode
 import xyz.romakononovich.camera.domain.api.CameraApi

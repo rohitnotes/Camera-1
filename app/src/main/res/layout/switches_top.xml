@@ -18,6 +18,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="onClick"
         android:background="?android:attr/selectableItemBackground"
         app:srcCompat="@drawable/ic_grid_on"
         app:theme="@style/WhiteSelectableItemTheme"
@@ -33,6 +34,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="?android:attr/selectableItemBackground"
+        android:onClick="onClick"
         app:srcCompat="@drawable/ic_flash_off"
         app:theme="@style/WhiteSelectableItemTheme"
         app:tint="@android:color/white" />

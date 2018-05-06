@@ -27,6 +27,8 @@ interface MainContract {
 
         fun lockMakePhoto()
 
+        fun setPreviewLastPhoto(path: String)
+
         fun unlockMakePhoto()
 
         fun showCannotShowCameraToast()

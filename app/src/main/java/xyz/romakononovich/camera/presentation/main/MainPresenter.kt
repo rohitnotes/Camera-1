@@ -40,6 +40,7 @@ class MainPresenter(
             onPhotoSaved = {
                 v.showPhotoSavedToast(it)
                 v.unlockMakePhoto()
+                v.setPreviewLastPhoto(it)
             }
             onPhotoSavedFail = {
             }
@@ -98,5 +99,6 @@ class MainPresenter(
     override fun changeFlash() {
         cameraApi.changeFlashMode()
     }
+
 
 }

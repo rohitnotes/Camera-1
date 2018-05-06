@@ -38,7 +38,9 @@ dependencies {
     implementation dependencies.kotlinJDK7
     implementation dependencies.constrainLayout
     implementation dependencies.appCompat
+    implementation dependencies.glide
 
+    annotationProcessor dependencies.glide
     testImplementation dependencies.junit
     androidTestImplementation(dependencies.espresso) {
         exclude group: 'com.android.support', module: 'support-annotations'
