@@ -51,6 +51,8 @@ interface MainContract {
 
         fun changeFlash()
 
+        fun openGallery()
+
     }
 
 }

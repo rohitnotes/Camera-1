@@ -4,14 +4,17 @@ import android.Manifest
 import android.content.pm.PackageManager
 import xyz.romakononovich.camera.data.model.FlashMode
 import xyz.romakononovich.camera.domain.api.CameraApi
+import xyz.romakononovich.camera.presentation.router.Router
 
 /**
  * Created by RomanK on 05.05.18.
  */
 class MainPresenter(
         private val v: MainContract.View,
-        private val cameraApi: CameraApi
+        private val cameraApi: CameraApi,
+        private val router: Router
 ) : MainContract.Presenter {
+
     private companion object {
         const val PERMISSION_CAMERA = Manifest.permission.CAMERA
         const val REQUEST_PERMISSION_CAMERA = 0
@@ -100,5 +103,8 @@ class MainPresenter(
         cameraApi.changeFlashMode()
     }
 
+    override fun openGallery() {
+        router.openGallery()
+    }
 
 }

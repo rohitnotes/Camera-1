@@ -1,6 +1,5 @@
 package xyz.romakononovich.camera.presentation.view
 
-import android.content.ContentValues
 import android.content.Context
 import android.hardware.Camera
 import android.util.Log
@@ -14,6 +13,9 @@ import java.io.IOException
 /** A basic Camera preview class  */
 class CameraPreview(context: Context, private val camera: Camera?) : SurfaceView(context), SurfaceHolder.Callback {
 
+    private companion object {
+        val TAG = CameraPreview::class.java.simpleName
+    }
     private val surfaceHolder: SurfaceHolder = holder
 
     init {
@@ -28,7 +30,7 @@ class CameraPreview(context: Context, private val camera: Camera?) : SurfaceView
             camera?.setPreviewDisplay(holder)
             camera?.startPreview()
         } catch (e: IOException) {
-            Log.d(ContentValues.TAG, "Error setting camera preview: ${e.message}")
+            Log.d(TAG, "Error setting camera preview: ${e.message}")
         }
 
     }
@@ -60,7 +62,7 @@ class CameraPreview(context: Context, private val camera: Camera?) : SurfaceView
             camera?.startPreview()
 
         } catch (e: Exception) {
-            Log.d(ContentValues.TAG, "Error starting camera preview: ${e.message}")
+            Log.d(TAG, "Error starting camera preview: ${e.message}")
         }
     }
 

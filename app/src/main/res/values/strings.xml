@@ -5,4 +5,5 @@
     <string name="cannot_save_photo">Cannot save photo: PERMISSION DENIED</string>
     <string name="iv_description_camera_change">Camera change button</string>
     <string name="iv_description_open_gallery">Open gallery</string>
+    <string name="description_photo_in_gallery">Photo in gallery</string>
 </resources>

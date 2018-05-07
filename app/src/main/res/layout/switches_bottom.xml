@@ -52,6 +52,7 @@
         android:layout_margin="8dp"
         android:background="?android:attr/selectableItemBackground"
         android:contentDescription="@string/iv_description_open_gallery"
+        android:onClick="onClick"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

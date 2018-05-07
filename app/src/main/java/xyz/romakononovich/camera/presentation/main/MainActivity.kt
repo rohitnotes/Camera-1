@@ -3,14 +3,11 @@ package xyz.romakononovich.camera.presentation.main
 import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
@@ -20,24 +17,24 @@ import kotlinx.android.synthetic.main.switches_bottom.*
 import kotlinx.android.synthetic.main.switches_top.*
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.data.api.CameraApiImpl
+import xyz.romakononovich.camera.presentation.base.BaseActivity
+import xyz.romakononovich.camera.presentation.router.RouterImpl
 import xyz.romakononovich.camera.presentation.view.CameraPreview
 import xyz.romakononovich.camera.utils.toast
 import java.io.File
 
-class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListener {
+class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
+
 
     override var presenter: MainContract.Presenter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        setContentView(R.layout.activity_main)
+
         setPreviewLastPhoto(getPathLastPhoto())
 
-        MainPresenter(this, CameraApiImpl(getString(R.string.app_name))) // init presenter
+        MainPresenter(this, CameraApiImpl(getString(R.string.app_name)), RouterImpl(this)) // init presenter
 
     }
 
@@ -164,7 +161,14 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
             btnGrid -> {
                 changeStateGrid()
             }
+            ivLastPhoto -> {
+                presenter?.openGallery()
+            }
 
         }
+    }
+
+    override fun getResLayout(): Int {
+        return R.layout.activity_main
     }
 }
