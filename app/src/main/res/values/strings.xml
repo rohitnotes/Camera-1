@@ -6,4 +6,10 @@
     <string name="iv_description_camera_change">Camera change button</string>
     <string name="iv_description_open_gallery">Open gallery</string>
     <string name="description_photo_in_gallery">Photo in gallery</string>
+    <string name="shortcut_camera_short_label">Photo</string>
+    <string name="shortcut_camera_long_label">Photo</string>
+    <string name="shortcut_camera_disabled_message">Disable</string>
+    <string name="shortcut_gallery_short_label">Gallery</string>
+    <string name="shortcut_gallery_long_label">Gallery</string>
+    <string name="shortcut_gallery_disabled_message">Disable</string>
 </resources>

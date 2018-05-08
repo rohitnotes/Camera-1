@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="id_gallery"
+        android:enabled="true"
+        android:icon="@drawable/shortcut_gallery"
+        android:shortcutShortLabel="@string/shortcut_gallery_short_label"
+        android:shortcutLongLabel="@string/shortcut_gallery_long_label"
+        android:shortcutDisabledMessage="@string/shortcut_gallery_disabled_message">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="xyz.romakononovich.camera"
+            android:targetClass="xyz.romakononovich.camera.presentation.gallery.GalleryActivity" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="id_camera"
+        android:enabled="true"
+        android:icon="@drawable/shortcut_camera"
+        android:shortcutShortLabel="@string/shortcut_camera_short_label"
+        android:shortcutLongLabel="@string/shortcut_camera_long_label"
+        android:shortcutDisabledMessage="@string/shortcut_camera_disabled_message">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="xyz.romakononovich.camera"
+            android:targetClass="xyz.romakononovich.camera.presentation.main.MainActivity" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+</shortcuts>
