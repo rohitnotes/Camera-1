@@ -13,6 +13,10 @@ interface MainContract {
 
         var onCameraChanged: (camera: Camera) -> Unit
 
+        fun makePhoto()
+
+        fun openGallery()
+
         fun hideChangeCamera()
 
         fun hideFlash()
@@ -27,13 +31,17 @@ interface MainContract {
 
         fun lockMakePhoto()
 
-        fun setPreviewLastPhoto(path: String)
-
         fun unlockMakePhoto()
+
+        fun getPathLastPhoto(): String?
+
+        fun setPreviewLastPhoto(path: String?)
 
         fun showCannotShowCameraToast()
 
         fun showCannotSavePhotoToast()
+
+        fun showCannotOpenGalleryToast()
 
         fun requestPermission(permission: String, requestCode: Int)
 
@@ -42,8 +50,6 @@ interface MainContract {
     }
 
     interface Presenter : BasePresenter {
-
-        fun permissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
 
         fun changeCamera()
 
