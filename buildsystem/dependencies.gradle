@@ -11,6 +11,8 @@ ext {
             kotlinJDK7      : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
 
             appCompat       : "com.android.support:appcompat-v7:$supportLibraryVersion",
+        
+            design       : "com.android.support:design:$supportLibraryVersion",
 
             constrainLayout       : "com.android.support.constraint:constraint-layout:$constrainVersion",
         

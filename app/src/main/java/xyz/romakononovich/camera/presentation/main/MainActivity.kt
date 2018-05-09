@@ -14,8 +14,8 @@ import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.switches_bottom.*
-import kotlinx.android.synthetic.main.switches_top.*
+import kotlinx.android.synthetic.main.switches_bottom_camera.*
+import kotlinx.android.synthetic.main.switches_top_camera.*
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.data.api.CameraApiImpl
 import xyz.romakononovich.camera.presentation.base.BaseActivity

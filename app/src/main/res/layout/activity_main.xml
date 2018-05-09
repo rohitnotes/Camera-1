@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <include layout="@layout/switches_top" />
+    <include layout="@layout/switches_top_camera" />
 
-    <include layout="@layout/switches_bottom" />
+    <include layout="@layout/switches_bottom_camera" />
 </FrameLayout>

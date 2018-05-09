@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
-import kotlinx.android.synthetic.main.switches_bottom.*
+import kotlinx.android.synthetic.main.switches_bottom_camera.*
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.presentation.gallery.GalleryActivity
 import xyz.romakononovich.camera.utils.ifElseLollipop

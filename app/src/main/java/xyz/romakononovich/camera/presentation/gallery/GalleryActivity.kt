@@ -2,6 +2,7 @@ package xyz.romakononovich.camera.presentation.gallery
 
 import android.os.Bundle
 import android.os.Environment
+import android.view.View
 import kotlinx.android.synthetic.main.activity_gallery.*
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.presentation.base.BaseActivity
@@ -38,5 +39,13 @@ class GalleryActivity : BaseActivity() {
         return R.layout.activity_gallery
     }
 
+    override fun onResume() {
+        super.onResume()
+        includeLayoutBottom.visibility = View.VISIBLE
+    }
+    override fun onBackPressed() {
+        includeLayoutBottom.visibility = View.GONE
+        super.onBackPressed()
+    }
 }
 

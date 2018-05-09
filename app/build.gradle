@@ -38,6 +38,7 @@ dependencies {
     implementation dependencies.kotlinJDK7
     implementation dependencies.constrainLayout
     implementation dependencies.appCompat
+    implementation dependencies.design
     implementation dependencies.glide
 
     annotationProcessor dependencies.glide
