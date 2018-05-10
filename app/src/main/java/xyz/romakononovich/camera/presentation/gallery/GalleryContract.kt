@@ -19,7 +19,7 @@ interface GalleryContract {
     }
 
     interface Presenter : BasePresenter {
-        fun startBarcodeDetector(path: String)
+        fun startBarcodeDetector(id: Int)
 
         fun getPhoto()
 

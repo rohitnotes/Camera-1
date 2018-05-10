@@ -48,7 +48,6 @@ class GalleryAdapter(context: Context) : PagerAdapter(){
         return pathsList.size
     }
 
-
     override fun getItemPosition(`object`: Any): Int {
         return PagerAdapter.POSITION_NONE
     }
@@ -59,7 +58,7 @@ class GalleryAdapter(context: Context) : PagerAdapter(){
                 .load(pathsList[position])
                 .apply(RequestOptions().transforms(RotateTransformation(90f)))
                 .into(itemView.ivPhoto)
-//        Toast.makeText(context,position.toString()+" - "+getItemPosition(this),Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,position.toString()+" - "+getItemPosition(this),Toast.LENGTH_SHORT).show()
         clickListener?.apply {
             faceDetectPhoto()
             barcodePhoto()

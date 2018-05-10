@@ -2,11 +2,8 @@ package xyz.romakononovich.camera.presentation.gallery
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.support.customtabs.CustomTabsIntent
-import android.support.v7.app.AlertDialog
 import android.view.View
 import kotlinx.android.synthetic.main.activity_gallery.*
 import kotlinx.android.synthetic.main.item_pager.*
@@ -16,15 +13,24 @@ import xyz.romakononovich.camera.data.api.BarcodeDetectorApiImpl
 import xyz.romakononovich.camera.data.api.PhotoRepositoryImpl
 import xyz.romakononovich.camera.presentation.base.BaseActivity
 import xyz.romakononovich.camera.presentation.router.RouterImpl
+import xyz.romakononovich.camera.presentation.view.DeleteDialog
+import xyz.romakononovich.camera.presentation.view.QrCodeDialog
 import xyz.romakononovich.camera.utils.ALBUM_NAME
+import xyz.romakononovich.camera.utils.DELETE_DIALOG
 import xyz.romakononovich.camera.utils.DepthPageTransformer
+import xyz.romakononovich.camera.utils.QRCODE_DIALOG
 import java.io.File
 
 /**
  * Created by RomanK on 06.05.18.
  */
 
-class GalleryActivity : BaseActivity(), GalleryContract.View, GalleryAdapter.ClickListener, View.OnClickListener {
+class GalleryActivity : BaseActivity(),
+        GalleryContract.View,
+        GalleryAdapter.ClickListener,
+        View.OnClickListener,
+        DeleteDialog.DeleteDialogListener {
+
 
     override var presenter: GalleryContract.Presenter? = null
     private var galleryAdapter: GalleryAdapter? = null
@@ -47,15 +53,8 @@ class GalleryActivity : BaseActivity(), GalleryContract.View, GalleryAdapter.Cli
     }
 
     override var onBarcodeDetect: (source: String) -> Unit = {
-        val dlg = AlertDialog.Builder(this)
-                .setMessage(it)
-                .setNeutralButton(getString(R.string.dialog_btn_close), null)
-        if (it.startsWith("http://") || it.startsWith("https://")) {
-            dlg.setPositiveButton(getString(R.string.dialog_btn_open_web), { _, _ ->
-                CustomTabsIntent.Builder().build().launchUrl(this, Uri.parse(it))
-            })
-        }
-        dlg.create().show()
+        QrCodeDialog.newInstance(it).show(supportFragmentManager, QRCODE_DIALOG)
+
     }
 
 
@@ -84,14 +83,18 @@ class GalleryActivity : BaseActivity(), GalleryContract.View, GalleryAdapter.Cli
         btnQrCode.setOnClickListener(this)
     }
 
+    override fun onDeleteDialogPositiveClick(id: Int) {
+        presenter?.deletePhoto(id)
+        galleryAdapter?.delete(id)
+    }
+
     override fun onClick(view: View) {
         when (view) {
             btnQrCode -> {
-                presenter?.startBarcodeDetector(storageDir.listFiles().reversedArray()[viewPager.currentItem].absolutePath)
+                presenter?.startBarcodeDetector(viewPager.currentItem)
             }
             btnDelete -> {
-                presenter?.deletePhoto(viewPager.currentItem)
-                galleryAdapter?.delete(viewPager.currentItem)
+                DeleteDialog.newInstance(viewPager.currentItem).show(supportFragmentManager,DELETE_DIALOG)
             }
             btnShare -> {
                 presenter?.sharePhoto(viewPager.currentItem)

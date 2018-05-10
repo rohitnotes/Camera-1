@@ -29,8 +29,8 @@ class GalleryPresenter(private val v: GalleryContract.View,
 
     }
 
-    override fun startBarcodeDetector(path: String) {
-        codeApi.start(path)
+    override fun startBarcodeDetector(id: Int) {
+        codeApi.start(repository.getListPhoto()[id])
     }
 
     override fun deletePhoto(id: Int) {
