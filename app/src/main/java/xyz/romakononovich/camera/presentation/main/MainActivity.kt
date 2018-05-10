@@ -191,7 +191,7 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
     override fun getPathLastPhoto(): String? {
         return if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
             File(Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_PICTURES), "Camera").listFiles().last().absolutePath
+                    Environment.DIRECTORY_PICTURES), "Camera").listFiles()?.last()?.absolutePath
         } else {
             requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
             null
@@ -210,7 +210,9 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
 
     override fun openGallery() {
         if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
-            presenter?.openGallery()
+            if(getPathLastPhoto()!=null) {
+                presenter?.openGallery()
+            }
         } else {
             requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_OPEN_GALLERY)
         }

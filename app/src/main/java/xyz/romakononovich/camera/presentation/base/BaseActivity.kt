@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.view.WindowManager
-import xyz.romakononovich.camera.R
 
 /**
  * Created by RomanK on 07.05.18.

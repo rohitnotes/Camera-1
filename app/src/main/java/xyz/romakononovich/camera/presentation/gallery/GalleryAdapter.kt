@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.RotateAnimation
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
 import com.bumptech.glide.request.RequestOptions
@@ -37,8 +38,8 @@ class GalleryAdapter(context: Context) : PagerAdapter(){
     interface ClickListener {
         fun sharePhoto(imagePath: String)
         fun deletePhoto(imagePath: String)
-        fun detailPhoto(imagePath: String)
-        fun editPhoto(imagePath: String)
+        fun faceDetectPhoto(imagePath: String)
+        fun barcodePhoto(imagePath: String)
     }
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view === `object`
@@ -48,6 +49,7 @@ class GalleryAdapter(context: Context) : PagerAdapter(){
         return pathsList.size
     }
 
+
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val itemView = inflater.inflate(R.layout.item_pager, container, false)
         TransformationUtils.getExifOrientationDegrees(1)
@@ -55,12 +57,18 @@ class GalleryAdapter(context: Context) : PagerAdapter(){
                 .load(pathsList[position])
                 .apply(RequestOptions().transforms(RotateTransformation(90f)))
                 .into(itemView.ivPhoto)
-
+        Toast.makeText(context,position.toString()+" - "+getItemPosition(this),Toast.LENGTH_SHORT).show()
+        clickListener?.apply {
+            faceDetectPhoto(pathsList[position])
+            barcodePhoto(pathsList[position])
+        }
         container.addView(itemView)
 
         return itemView
 
     }
+
+
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
 //        super.destroyItem(container, position, `object`)

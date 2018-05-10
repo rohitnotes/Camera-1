@@ -39,6 +39,8 @@ dependencies {
     implementation dependencies.constrainLayout
     implementation dependencies.appCompat
     implementation dependencies.design
+    implementation dependencies.customTabs
+    implementation dependencies.gVision
     implementation dependencies.glide
 
     annotationProcessor dependencies.glide
