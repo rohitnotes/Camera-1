@@ -13,7 +13,10 @@ import kotlinx.android.synthetic.main.item_pager.*
 import kotlinx.android.synthetic.main.switches_bottom_gallery.*
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.data.api.BarcodeDetectorApiImpl
+import xyz.romakononovich.camera.data.api.PhotoRepositoryImpl
 import xyz.romakononovich.camera.presentation.base.BaseActivity
+import xyz.romakononovich.camera.presentation.router.RouterImpl
+import xyz.romakononovich.camera.utils.ALBUM_NAME
 import xyz.romakononovich.camera.utils.DepthPageTransformer
 import java.io.File
 
@@ -21,26 +24,24 @@ import java.io.File
  * Created by RomanK on 06.05.18.
  */
 
-class GalleryActivity : BaseActivity(), GalleryContract.View, GalleryAdapter.ClickListener {
+class GalleryActivity : BaseActivity(), GalleryContract.View, GalleryAdapter.ClickListener, View.OnClickListener {
 
     override var presenter: GalleryContract.Presenter? = null
-    private val pathsList: MutableList<String> = ArrayList()
     private var galleryAdapter: GalleryAdapter? = null
 
     private val storageDir: File by lazy {
         File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "Camera")
+                Environment.DIRECTORY_PICTURES), ALBUM_NAME)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        GalleryPresenter(this, BarcodeDetectorApiImpl(this))
+        GalleryPresenter(this, BarcodeDetectorApiImpl(this), PhotoRepositoryImpl(), RouterImpl(this))
+        presenter?.start()
+    }
 
-
-        for (image in storageDir.listFiles().reversedArray()) {
-            pathsList.add(image.absolutePath)
-        }
-        galleryAdapter = GalleryAdapter(this, pathsList, this)
+    override fun initViewPager(list: MutableList<String>) {
+        galleryAdapter = GalleryAdapter(this, list, this)
         viewPager.adapter = galleryAdapter
         viewPager.setPageTransformer(true, DepthPageTransformer())
     }
@@ -67,26 +68,35 @@ class GalleryActivity : BaseActivity(), GalleryContract.View, GalleryAdapter.Cli
     }
 
 
-    override fun sharePhoto(imagePath: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun sharePhoto() {
+        btnShare.setOnClickListener(this)
     }
 
-    override fun deletePhoto(imagePath: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun deletePhoto() {
+        btnDelete.setOnClickListener (this)
     }
 
-    override fun faceDetectPhoto(imagePath: String) {
-        btnFace.setOnClickListener {
-            // presenter?.startFaceDetector(imagePath)
-//            presenter?.startFaceDetector(storageDir.listFiles().reversedArray()[viewPager.currentItem].absolutePath)
-        }
-
-
+    override fun faceDetectPhoto() {
+        btnFace.setOnClickListener(this)
     }
 
-    override fun barcodePhoto(imagePath: String) {
-        btnQrCode.setOnClickListener {
-            presenter?.startBarcodeDetector(storageDir.listFiles().reversedArray()[viewPager.currentItem].absolutePath)
+    override fun barcodePhoto() {
+        btnQrCode.setOnClickListener(this)
+    }
+
+    override fun onClick(view: View) {
+        when (view) {
+            btnQrCode -> {
+                presenter?.startBarcodeDetector(storageDir.listFiles().reversedArray()[viewPager.currentItem].absolutePath)
+            }
+            btnDelete -> {
+                presenter?.deletePhoto(viewPager.currentItem)
+                galleryAdapter?.delete(viewPager.currentItem)
+            }
+            btnShare -> {
+                presenter?.sharePhoto(viewPager.currentItem)
+            }
+
         }
     }
 

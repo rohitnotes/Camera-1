@@ -7,6 +7,7 @@
     <string name="qrcode_no_found">QR code no found</string>
     <string name="dialog_btn_close">Close</string>
     <string name="dialog_btn_open_web">Open site</string>
+    <string name="share_photo_text">Share photo</string>
     <string name="device_no_support_barcode_detector">Barcode Detector could not be set up on your device :(</string>
     <string name="iv_description_camera_change">Camera change button</string>
     <string name="iv_description_open_gallery">Open gallery</string>

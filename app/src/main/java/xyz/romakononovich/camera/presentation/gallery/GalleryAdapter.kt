@@ -19,27 +19,26 @@ import xyz.romakononovich.camera.utils.RotateTransformation
  */
 class GalleryAdapter(context: Context) : PagerAdapter(){
     private lateinit var context: Context
-    private lateinit var pathsList: List<String>
+    private lateinit var pathsList: MutableList<String>
     private var clickListener: ClickListener? = null
     private val inflater = LayoutInflater.from(context)
 
     constructor(context: Context, images: List<String>, listener: ClickListener) : this(context) {
         this.context = context
-        this.pathsList = images
+        this.pathsList = images.toMutableList()
         clickListener = listener
     }
 
-    constructor(context: Context, images: List<String>) : this(context) {
-        this.context = context
-        this.pathsList = images
+    fun delete(id: Int) {
+        pathsList.removeAt(id)
+        notifyDataSetChanged()
     }
 
-
     interface ClickListener {
-        fun sharePhoto(imagePath: String)
-        fun deletePhoto(imagePath: String)
-        fun faceDetectPhoto(imagePath: String)
-        fun barcodePhoto(imagePath: String)
+        fun sharePhoto()
+        fun deletePhoto()
+        fun faceDetectPhoto()
+        fun barcodePhoto()
     }
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view === `object`
@@ -50,6 +49,9 @@ class GalleryAdapter(context: Context) : PagerAdapter(){
     }
 
 
+    override fun getItemPosition(`object`: Any): Int {
+        return PagerAdapter.POSITION_NONE
+    }
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val itemView = inflater.inflate(R.layout.item_pager, container, false)
         TransformationUtils.getExifOrientationDegrees(1)
@@ -57,10 +59,12 @@ class GalleryAdapter(context: Context) : PagerAdapter(){
                 .load(pathsList[position])
                 .apply(RequestOptions().transforms(RotateTransformation(90f)))
                 .into(itemView.ivPhoto)
-        Toast.makeText(context,position.toString()+" - "+getItemPosition(this),Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context,position.toString()+" - "+getItemPosition(this),Toast.LENGTH_SHORT).show()
         clickListener?.apply {
-            faceDetectPhoto(pathsList[position])
-            barcodePhoto(pathsList[position])
+            faceDetectPhoto()
+            barcodePhoto()
+            deletePhoto()
+            sharePhoto()
         }
         container.addView(itemView)
 
@@ -71,7 +75,6 @@ class GalleryAdapter(context: Context) : PagerAdapter(){
 
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-//        super.destroyItem(container, position, `object`)
         container.removeView(`object` as View)
     }
 
