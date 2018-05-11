@@ -1,14 +1,19 @@
 package xyz.romakononovich.camera.data.api
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.hardware.Camera
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import com.bumptech.glide.load.resource.transcode.BitmapBytesTranscoder
 import xyz.romakononovich.camera.utils.catchAll
 import xyz.romakononovich.camera.data.executor.MainThreadImpl
 import xyz.romakononovich.camera.data.model.FlashMode
 import xyz.romakononovich.camera.domain.api.CameraApi
 import xyz.romakononovich.camera.utils.ALBUM_NAME
+import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -180,8 +185,21 @@ class CameraApiImpl() : CameraApi {
     }
 
     private val pictureCallback = Camera.PictureCallback { data, camera ->
+        val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
+
+        val matrix = Matrix()
+        //90 это угол поворота изображения
+        if (currentCameraId == facingCameraId) {
+            matrix.postRotate(270f)
+        } else if (currentCameraId == backCameraId) {
+            matrix.postRotate(90f)
+        }
+
+        val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+
         getOutputMediaFile(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE).let {
             // it -> picture file
+
             if (it == null) {
                 Log.d(TAG, "Error creating media file, check storage permissions")
                 onPhotoSavedFail.invoke()
@@ -191,7 +209,8 @@ class CameraApiImpl() : CameraApi {
                 Thread({
                     catchAll("error saving file", {
                         val fos = FileOutputStream(it)
-                        fos.write(data)
+                        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, fos)
+                        fos.flush()
                         fos.close()
                         mainThread?.post { onPhotoSaved.invoke(it.absolutePath) }
                     })

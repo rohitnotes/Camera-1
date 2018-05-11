@@ -11,7 +11,7 @@ import java.io.IOException
  * Created by RomanK on 05.05.18.
  */
 /** A basic Camera preview class  */
-class CameraPreview(context: Context, private val camera: Camera?) : SurfaceView(context), SurfaceHolder.Callback {
+class CameraPreview(context: Context, private val camera: Camera) : SurfaceView(context), SurfaceHolder.Callback {
 
     private companion object {
         val TAG = CameraPreview::class.java.simpleName
@@ -27,8 +27,8 @@ class CameraPreview(context: Context, private val camera: Camera?) : SurfaceView
     override fun surfaceCreated(holder: SurfaceHolder) {
         // The Surface has been created, now tell the camera where to draw the preview.
         try {
-            camera?.setPreviewDisplay(holder)
-            camera?.startPreview()
+            camera.setPreviewDisplay(holder)
+            camera.startPreview()
         } catch (e: IOException) {
             Log.d(TAG, "Error setting camera preview: ${e.message}")
         }
@@ -49,7 +49,7 @@ class CameraPreview(context: Context, private val camera: Camera?) : SurfaceView
 
         // stop preview before making changes
         try {
-            camera?.stopPreview()
+            camera.stopPreview()
         } catch (e: Exception) {
         }
 
@@ -58,8 +58,8 @@ class CameraPreview(context: Context, private val camera: Camera?) : SurfaceView
 
         // start preview with new settings
         try {
-            camera?.setPreviewDisplay(surfaceHolder)
-            camera?.startPreview()
+            camera.setPreviewDisplay(surfaceHolder)
+            camera.startPreview()
 
         } catch (e: Exception) {
             Log.d(TAG, "Error starting camera preview: ${e.message}")

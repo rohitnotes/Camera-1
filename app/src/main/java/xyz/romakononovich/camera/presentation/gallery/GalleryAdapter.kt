@@ -53,7 +53,7 @@ class GalleryAdapter(context: Context) : PagerAdapter() {
         TransformationUtils.getExifOrientationDegrees(1)
         Glide.with(context)
                 .load(pathsList[position])
-                .apply(RequestOptions().transforms(RotateTransformation(90f)))
+                //.apply(RequestOptions().transforms(RotateTransformation(90f)))
                 .into(itemView.ivPhoto)
         itemView.setOnClickListener {
             clickListener?.clickViewPager()

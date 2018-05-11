@@ -2,17 +2,11 @@ package xyz.romakononovich.camera.presentation.router
 
 import android.app.Activity
 import android.app.ActivityOptions
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import kotlinx.android.synthetic.main.switches_bottom_camera.*
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.presentation.gallery.GalleryActivity
-import xyz.romakononovich.camera.utils.IMAGE_JPEG
 import xyz.romakononovich.camera.utils.ifElseLollipop
-import java.io.File
-import android.os.StrictMode
-
 
 /**
  * Created by RomanK on 06.05.18.

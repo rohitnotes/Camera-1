@@ -13,7 +13,7 @@ import dagger.android.AndroidInjection
 /**
  * Created by RomanK on 07.05.18.
  */
-abstract class BaseActivity : AppCompatActivity(), BaseView {
+abstract class BaseActivity : AppCompatActivity(), BaseView{
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -50,6 +50,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         }
     }
 
-    override fun isPermissionGranted(permission: String) =
+    override fun isPermissionGranted(permission: String)=
             ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
 }
