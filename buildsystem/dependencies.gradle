@@ -4,6 +4,7 @@ ext {
     constrainVersion = '1.0.2'
     glideVersion = '4.7.1'
     gVisionVersion = '15.0.0'
+    daggerVersion = '2.14.1'
     jUnitVersion = '4.12'
     espressoVersion = '2.2.2'
 
@@ -18,6 +19,14 @@ ext {
             customTabs       : "com.android.support:customtabs:$supportLibraryVersion",
         
             gVision       : "com.google.android.gms:play-services-vision:$gVisionVersion",
+        
+            dagger       : "com.google.dagger:dagger:$daggerVersion",
+        
+            daggerAndroid       : "com.google.dagger:dagger-android:$daggerVersion",
+        
+            daggerAndroidProcessor       : "com.google.dagger:dagger-android-processor:$daggerVersion",
+        
+            daggerKapt       : "com.google.dagger:dagger-compiler:$daggerVersion",
 
             constrainLayout       : "com.android.support.constraint:constraint-layout:$constrainVersion",
         

@@ -5,6 +5,4 @@ package xyz.romakononovich.camera.presentation.router
  */
 interface Router {
     fun openGallery()
-
-    fun sharePhoto(path: String)
 }

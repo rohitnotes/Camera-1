@@ -2,15 +2,17 @@ package xyz.romakononovich.camera.presentation.gallery
 
 import xyz.romakononovich.camera.domain.api.BarcodeDetectorApi
 import xyz.romakononovich.camera.domain.api.PhotoRepository
-import xyz.romakononovich.camera.presentation.router.Router
+import xyz.romakononovich.camera.presentation.base.BasePresenterImpl
+import xyz.romakononovich.camera.presentation.router.RouterGallery
+import javax.inject.Inject
 
 /**
  * Created by RomanK on 09.05.18.
  */
-class GalleryPresenter(private val v: GalleryContract.View,
-                       private val codeApi: BarcodeDetectorApi,
-                       private val repository: PhotoRepository,
-                       private val router: Router) : GalleryContract.Presenter {
+class GalleryPresenter<V: GalleryContract.View>
+@Inject constructor(private val barcodeApi: BarcodeDetectorApi,
+                    private val repository: PhotoRepository,
+                    private val router: RouterGallery) : BasePresenterImpl<V>(), GalleryContract.Presenter<V> {
 
 
     override fun getPhoto() {
@@ -20,17 +22,15 @@ class GalleryPresenter(private val v: GalleryContract.View,
 
 
     init {
-        v.presenter = this
-        codeApi.run {
+        barcodeApi.run {
             onBarcodeDetect = {
-                v.onBarcodeDetect.invoke(it)
+                view()?.onBarcodeDetect?.invoke(it)
             }
         }
-
     }
 
     override fun startBarcodeDetector(id: Int) {
-        codeApi.start(repository.getListPhoto()[id])
+        barcodeApi.start(repository.getListPhoto()[id])
     }
 
     override fun deletePhoto(id: Int) {
@@ -42,7 +42,7 @@ class GalleryPresenter(private val v: GalleryContract.View,
     }
 
     override fun start() {
-        v.initViewPager(repository.getListPhoto())
+        view()?.initViewPager(repository.getListPhoto())
     }
 
     override fun stop() {

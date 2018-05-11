@@ -9,7 +9,7 @@ import xyz.romakononovich.camera.presentation.base.BaseView
  */
 interface MainContract {
 
-    interface View : BaseView<Presenter> {
+    interface View : BaseView {
 
         var onCameraChanged: (camera: Camera) -> Unit
 
@@ -49,7 +49,7 @@ interface MainContract {
 
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter<V: MainContract.View> : BasePresenter<V> {
 
         fun changeCamera()
 
@@ -58,6 +58,10 @@ interface MainContract {
         fun changeFlash()
 
         fun openGallery()
+
+        fun start()
+
+        fun stop()
 
     }
 

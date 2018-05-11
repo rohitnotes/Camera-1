@@ -3,10 +3,11 @@ package xyz.romakononovich.camera.presentation.base
 /**
  * Created by RomanK on 05.05.18.
  */
-interface BasePresenter {
+interface BasePresenter<V : BaseView> {
 
-    fun start()
+    fun onAttach(view: V)
 
-    fun stop()
+    fun onDetach()
 
+    fun view(): V?
 }

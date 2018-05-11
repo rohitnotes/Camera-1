@@ -23,6 +23,7 @@ import xyz.romakononovich.camera.presentation.router.RouterImpl
 import xyz.romakononovich.camera.presentation.view.CameraPreview
 import xyz.romakononovich.camera.utils.toast
 import java.io.File
+import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
 
@@ -35,19 +36,20 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
         const val REQUEST_PERMISSION_FOR_OPEN_GALLERY = 3
     }
 
-    override var presenter: MainContract.Presenter? = null
-
+    @Inject
+    lateinit var presenter: MainPresenter<MainContract.View>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MainPresenter(this, CameraApiImpl(getString(R.string.app_name)), RouterImpl(this)) // init presenter
         setPreviewLastPhoto(getPathLastPhoto())
     }
 
     override fun onResume() {
         super.onResume()
+        presenter.onAttach(this)
+
         if (isPermissionGranted(PERMISSION_CAMERA)) {
-            presenter?.start()
+            presenter.start()
         } else {
             requestPermission(PERMISSION_CAMERA, REQUEST_PERMISSION_CAMERA)
         }
@@ -59,7 +61,7 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
             REQUEST_PERMISSION_CAMERA -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    presenter?.start()
+                    presenter.start()
                 } else {
                     showCannotShowCameraToast()
                 }
@@ -67,7 +69,7 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
             }
             REQUEST_PERMISSION_FOR_SAVE_PHOTO -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    presenter?.makePhoto()
+                    presenter.makePhoto()
                 } else {
                     showCannotSavePhotoToast()
                 }
@@ -92,7 +94,7 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
 
     override fun onPause() {
         super.onPause()
-        presenter?.stop()
+        presenter.stop()
     }
 
     override var onCameraChanged: (camera: Camera) -> Unit = {
@@ -202,7 +204,7 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
     override fun makePhoto() {
         if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
             lockMakePhoto()
-            presenter?.makePhoto()
+            presenter.makePhoto()
         } else {
             requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_SAVE_PHOTO)
         }
@@ -210,8 +212,8 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
 
     override fun openGallery() {
         if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
-            if(getPathLastPhoto()!=null) {
-                presenter?.openGallery()
+            if (getPathLastPhoto() != null) {
+                presenter.openGallery()
             }
         } else {
             requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_OPEN_GALLERY)
@@ -222,10 +224,10 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
         when (view) {
             btnChangeCamera -> {
                 btnChangeCamera.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotate))
-                presenter?.changeCamera()
+                presenter.changeCamera()
             }
             btnFlash -> {
-                presenter?.changeFlash()
+                presenter.changeFlash()
             }
             btnMakePhoto -> {
                 makePhoto()
@@ -242,5 +244,10 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
 
     override fun getResLayout(): Int {
         return R.layout.activity_main
+    }
+
+    override fun onDestroy() {
+        presenter.onDetach()
+        super.onDestroy()
     }
 }

@@ -8,6 +8,7 @@ import xyz.romakononovich.camera.utils.catchAll
 import xyz.romakononovich.camera.data.executor.MainThreadImpl
 import xyz.romakononovich.camera.data.model.FlashMode
 import xyz.romakononovich.camera.domain.api.CameraApi
+import xyz.romakononovich.camera.utils.ALBUM_NAME
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -16,7 +17,7 @@ import java.util.*
 /**
  * Created by RomanK on 05.05.18.
  */
-class CameraApiImpl(private val appName: String) : CameraApi {
+class CameraApiImpl() : CameraApi {
 
     private companion object {
         val TAG = CameraApiImpl::class.java.simpleName
@@ -205,7 +206,7 @@ class CameraApiImpl(private val appName: String) : CameraApi {
     // Create a File for saving an image or video
     private fun getOutputMediaFile(type: Int): File? {
         val mediaStorageDir = File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), appName)
+                Environment.DIRECTORY_PICTURES), ALBUM_NAME)
         // This location works best if you want the created images to be shared
         // between applications and persist after your app has been uninstalled.
 

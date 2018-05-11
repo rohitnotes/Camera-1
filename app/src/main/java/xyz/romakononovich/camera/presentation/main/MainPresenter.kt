@@ -2,39 +2,40 @@ package xyz.romakononovich.camera.presentation.main
 
 import xyz.romakononovich.camera.data.model.FlashMode
 import xyz.romakononovich.camera.domain.api.CameraApi
+import xyz.romakononovich.camera.presentation.base.BasePresenterImpl
 import xyz.romakononovich.camera.presentation.router.Router
+import javax.inject.Inject
 
 /**
  * Created by RomanK on 05.05.18.
  */
-class MainPresenter(
-        private val v: MainContract.View,
+class MainPresenter<V : MainContract.View>
+@Inject constructor(
         private val cameraApi: CameraApi,
         private val router: Router
-) : MainContract.Presenter {
+) : BasePresenterImpl<V>(), MainContract.Presenter<V> {
 
     init {
-        v.presenter = this
         cameraApi.run {
             onCameraChanged = {
-                v.onCameraChanged.invoke(it)
+                view()?.onCameraChanged?.invoke(it)
             }
             onCamerasRetrieved = {
                 if (it == 0)
-                    v.hideChangeCamera()
+                    view()?.hideChangeCamera()
             }
             onFlashModeChanged = {
                 when (it) {
-                    FlashMode.NONE -> v.hideFlash()
-                    FlashMode.ON -> v.showFlashOn()
-                    FlashMode.AUTO -> v.showFlashAuto()
-                    FlashMode.OFF -> v.showFlashOff()
+                    FlashMode.NONE -> view()?.hideFlash()
+                    FlashMode.ON -> view()?.showFlashOn()
+                    FlashMode.AUTO -> view()?.showFlashAuto()
+                    FlashMode.OFF -> view()?.showFlashOff()
                 }
             }
             onPhotoSaved = {
-                v.showPhotoSavedToast(it)
-                v.unlockMakePhoto()
-                v.setPreviewLastPhoto(it)
+                view()?.showPhotoSavedToast(it)
+                view()?.unlockMakePhoto()
+                view()?.setPreviewLastPhoto(it)
             }
             onPhotoSavedFail = {
             }
@@ -55,7 +56,6 @@ class MainPresenter(
 
     override fun makePhoto() {
         cameraApi.makePhoto()
-
     }
 
     override fun changeFlash() {

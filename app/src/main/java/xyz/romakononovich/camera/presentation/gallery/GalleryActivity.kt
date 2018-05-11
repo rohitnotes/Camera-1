@@ -8,15 +8,13 @@ import kotlinx.android.synthetic.main.activity_gallery.*
 import kotlinx.android.synthetic.main.switches_bottom_gallery.*
 import kotlinx.android.synthetic.main.toolbar.*
 import xyz.romakononovich.camera.R
-import xyz.romakononovich.camera.data.api.BarcodeDetectorApiImpl
-import xyz.romakononovich.camera.data.api.PhotoRepositoryImpl
 import xyz.romakononovich.camera.presentation.base.BaseActivity
-import xyz.romakononovich.camera.presentation.router.RouterImpl
 import xyz.romakononovich.camera.presentation.view.DeleteDialog
 import xyz.romakononovich.camera.presentation.view.QrCodeDialog
 import xyz.romakononovich.camera.utils.DELETE_DIALOG
 import xyz.romakononovich.camera.utils.DepthPageTransformer
 import xyz.romakononovich.camera.utils.QRCODE_DIALOG
+import javax.inject.Inject
 
 
 /**
@@ -30,7 +28,8 @@ class GalleryActivity : BaseActivity(),
         DeleteDialog.DeleteDialogListener {
 
 
-    override var presenter: GalleryContract.Presenter? = null
+    @Inject
+    lateinit var presenter: GalleryPresenter<GalleryContract.View>
     private var galleryAdapter: GalleryAdapter? = null
 
 
@@ -42,19 +41,12 @@ class GalleryActivity : BaseActivity(),
             setDisplayShowHomeEnabled(true)
             setDisplayShowTitleEnabled(false)
         }
-
-        GalleryPresenter(this, BarcodeDetectorApiImpl(this), PhotoRepositoryImpl(), RouterImpl(this))
-        presenter?.start()
+        presenter.onAttach(this)
+        presenter.start()
 
         includeToolbar.visibility = View.VISIBLE
         includeLayoutBottom.visibility = View.VISIBLE
 
-    }
-
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
     }
 
     override fun initViewPager(list: MutableList<String>) {
@@ -79,23 +71,22 @@ class GalleryActivity : BaseActivity(),
     }
 
     override fun onDeleteDialogPositiveClick(id: Int) {
-        presenter?.deletePhoto(id)
+        presenter.deletePhoto(id)
         galleryAdapter?.delete(id)
     }
 
     override fun onClick(view: View) {
         when (view) {
             btnQrCode -> {
-                presenter?.startBarcodeDetector(viewPager.currentItem)
+                presenter.startBarcodeDetector(viewPager.currentItem)
             }
             btnDelete -> {
                 DeleteDialog.newInstance(viewPager.currentItem).show(supportFragmentManager, DELETE_DIALOG)
             }
             btnShare -> {
-                presenter?.sharePhoto(viewPager.currentItem)
+                presenter.sharePhoto(viewPager.currentItem)
             }
             btnFace -> {
-
 
             }
         }
@@ -134,6 +125,16 @@ class GalleryActivity : BaseActivity(),
             showView(false)
         }
         super.onBackPressed()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onDestroy() {
+        presenter.onDetach()
+        super.onDestroy()
     }
 }
 

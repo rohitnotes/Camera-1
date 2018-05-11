@@ -14,31 +14,19 @@ import java.io.File
 import android.os.StrictMode
 
 
-
 /**
  * Created by RomanK on 06.05.18.
  */
-class RouterImpl(private val context: Context) : Router {
+class RouterImpl(private val activity: Activity) : Router {
 
     override fun openGallery() {
         ifElseLollipop({
-            context.startActivity(Intent(context, GalleryActivity::class.java),
-                    ActivityOptions.makeSceneTransitionAnimation(context as Activity,
-                            context.ivLastPhoto,
-                            context.getString(R.string.description_photo_in_gallery)).toBundle())
+            activity.startActivity(Intent(activity, GalleryActivity::class.java),
+                    ActivityOptions.makeSceneTransitionAnimation(activity,
+                            activity.ivLastPhoto,
+                            activity.getString(R.string.description_photo_in_gallery)).toBundle())
         }, {
-            context.startActivity(Intent(context, GalleryActivity::class.java))
+            activity.startActivity(Intent(activity, GalleryActivity::class.java))
         })
-    }
-
-    override fun sharePhoto(path: String) {
-        val builder = StrictMode.VmPolicy.Builder() //https://stackoverflow.com/questions/48117511/exposed-beyond-app-through-clipdata-item-geturi
-        StrictMode.setVmPolicy(builder.build())
-        val uriToImage = Uri.fromFile(File(path))
-        val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = IMAGE_JPEG
-            putExtra(Intent.EXTRA_STREAM, uriToImage)
-        }
-        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_photo_text)))
     }
 }
