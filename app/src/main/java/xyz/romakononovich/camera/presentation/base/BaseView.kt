@@ -5,4 +5,8 @@ package xyz.romakononovich.camera.presentation.base
  */
 interface BaseView {
 
+    fun requestPermission(permission: String, requestCode: Int)
+
+    fun isPermissionGranted(permission: String): Boolean
+
 }

@@ -21,20 +21,11 @@ import xyz.romakononovich.camera.data.api.CameraApiImpl
 import xyz.romakononovich.camera.presentation.base.BaseActivity
 import xyz.romakononovich.camera.presentation.router.RouterImpl
 import xyz.romakononovich.camera.presentation.view.CameraPreview
-import xyz.romakononovich.camera.utils.toast
+import xyz.romakononovich.camera.utils.*
 import java.io.File
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
-
-    private companion object {
-        const val PERMISSION_CAMERA = Manifest.permission.CAMERA
-        const val REQUEST_PERMISSION_CAMERA = 0
-        const val PERMISSION_WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE
-        const val REQUEST_PERMISSION_FOR_SAVE_PHOTO = 1
-        const val REQUEST_PERMISSION_FOR_GET_LAST_PHOTO = 2
-        const val REQUEST_PERMISSION_FOR_OPEN_GALLERY = 3
-    }
 
     @Inject
     lateinit var presenter: MainPresenter<MainContract.View>
@@ -141,17 +132,6 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
     override fun showCannotOpenGalleryToast() {
         toast(getString(R.string.cannot_open_gallery))
     }
-
-    override fun requestPermission(permission: String, requestCode: Int) {
-        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    arrayOf(permission),
-                    requestCode)
-        }
-    }
-
-    override fun isPermissionGranted(permission: String) =
-            ContextCompat.checkSelfPermission(this@MainActivity, permission) == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
 
     private fun showFlash() {
         btnFlash.visibility = View.VISIBLE

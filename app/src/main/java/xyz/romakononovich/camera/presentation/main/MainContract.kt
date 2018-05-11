@@ -43,10 +43,6 @@ interface MainContract {
 
         fun showCannotOpenGalleryToast()
 
-        fun requestPermission(permission: String, requestCode: Int)
-
-        fun isPermissionGranted(permission: String): Boolean
-
     }
 
     interface Presenter<V: MainContract.View> : BasePresenter<V> {

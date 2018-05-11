@@ -1,8 +1,12 @@
 package xyz.romakononovich.camera.presentation.gallery
 
 import android.animation.ObjectAnimator
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.view.View
 import kotlinx.android.synthetic.main.activity_gallery.*
 import kotlinx.android.synthetic.main.switches_bottom_gallery.*
@@ -11,9 +15,7 @@ import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.presentation.base.BaseActivity
 import xyz.romakononovich.camera.presentation.view.DeleteDialog
 import xyz.romakononovich.camera.presentation.view.QrCodeDialog
-import xyz.romakononovich.camera.utils.DELETE_DIALOG
-import xyz.romakononovich.camera.utils.DepthPageTransformer
-import xyz.romakononovich.camera.utils.QRCODE_DIALOG
+import xyz.romakononovich.camera.utils.*
 import javax.inject.Inject
 
 
@@ -42,7 +44,12 @@ class GalleryActivity : BaseActivity(),
             setDisplayShowTitleEnabled(false)
         }
         presenter.onAttach(this)
-        presenter.start()
+
+        if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
+            presenter.start()
+        } else {
+            requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_OPEN_GALLERY)
+        }
 
         includeToolbar.visibility = View.VISIBLE
         includeLayoutBottom.visibility = View.VISIBLE
@@ -61,6 +68,27 @@ class GalleryActivity : BaseActivity(),
         QrCodeDialog.newInstance(it).show(supportFragmentManager, QRCODE_DIALOG)
     }
 
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_PERMISSION_FOR_OPEN_GALLERY -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    presenter.start()
+                } else {
+                    showCannotOpenGalleryToast()
+                    onBackPressed()
+                }
+                return
+            }
+
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun showCannotOpenGalleryToast() {
+        toast(getString(R.string.cannot_open_gallery))
+    }
 
     override var onFaceDetect: (bitmap: Bitmap) -> Unit = {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

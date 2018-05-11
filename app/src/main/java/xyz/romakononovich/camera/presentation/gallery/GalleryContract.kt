@@ -16,9 +16,11 @@ interface GalleryContract {
         fun showDetectFace()
 
         fun initViewPager(list: MutableList<String>)
+
+        fun showCannotOpenGalleryToast()
     }
 
-    interface Presenter<V: GalleryContract.View>: BasePresenter<V> {
+    interface Presenter<V : GalleryContract.View> : BasePresenter<V> {
         fun startBarcodeDetector(id: Int)
 
         fun getPhoto()
