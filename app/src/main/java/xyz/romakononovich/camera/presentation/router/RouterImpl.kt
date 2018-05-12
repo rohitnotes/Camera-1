@@ -14,13 +14,14 @@ import xyz.romakononovich.camera.utils.ifElseLollipop
 class RouterImpl(private val activity: Activity) : Router {
 
     override fun openGallery() {
-        ifElseLollipop({
-            activity.startActivity(Intent(activity, GalleryActivity::class.java),
-                    ActivityOptions.makeSceneTransitionAnimation(activity,
-                            activity.ivLastPhoto,
-                            activity.getString(R.string.description_photo_in_gallery)).toBundle())
-        }, {
-            activity.startActivity(Intent(activity, GalleryActivity::class.java))
-        })
+        activity.startActivity(Intent(activity, GalleryActivity::class.java))
+//        ifElseLollipop({
+//            activity.startActivity(Intent(activity, GalleryActivity::class.java),
+//                    ActivityOptions.makeSceneTransitionAnimation(activity,
+//                            activity.ivLastPhoto,
+//                            activity.getString(R.string.description_photo_in_gallery)).toBundle())
+//        }, {
+//            activity.startActivity(Intent(activity, GalleryActivity::class.java))
+//        })
     }
 }

@@ -12,8 +12,7 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="onClick"
-        android:transitionName="@string/description_photo_in_gallery" />
+        android:onClick="onClick"/>
     <include
         android:id="@+id/includeToolbar"
         layout="@layout/toolbar"

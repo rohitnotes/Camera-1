@@ -6,7 +6,7 @@
     android:layout_gravity="bottom"
     android:background="@color/colorBlackTransparent">
 
-    <android.support.v7.widget.AppCompatImageButton
+    <ImageButton
         android:id="@+id/btnChangeCamera"
         android:layout_width="56dp"
         android:layout_height="56dp"
@@ -17,8 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_rotate"
-        app:theme="@style/WhiteSelectableItemTheme"
-        app:tint="@android:color/white" />
+        android:contentDescription= "@string/iv_description_camera_change" />
 
     <ImageView
         android:id="@+id/ivPhotoCamera"

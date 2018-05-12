@@ -8,11 +8,11 @@
     android:background="@android:color/transparent"
     tools:background="@android:color/black">
 
-    <android.support.v7.widget.AppCompatImageButton
+    <ImageButton
         android:id="@+id/btnShare"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:background="?android:attr/selectableItemBackground"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnFace"
@@ -20,15 +20,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_share"
-        app:theme="@style/WhiteSelectableItemTheme"
-        app:tint="@android:color/white" />
+        android:contentDescription="@string/description_btn_share_photo" />
 
-    <android.support.v7.widget.AppCompatImageButton
+    <ImageButton
         android:id="@+id/btnFace"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:background="?android:attr/selectableItemBackground"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnQrCode"
@@ -36,15 +36,15 @@
         app:layout_constraintStart_toEndOf="@+id/btnShare"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_faces"
-        app:theme="@style/WhiteSelectableItemTheme"
-        app:tint="@android:color/white" />
+        android:contentDescription="TODO" />
 
-    <android.support.v7.widget.AppCompatImageButton
+    <ImageButton
         android:id="@+id/btnQrCode"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:background="?android:attr/selectableItemBackground"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
@@ -52,15 +52,15 @@
         app:layout_constraintStart_toEndOf="@+id/btnFace"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_qr_code"
-        app:theme="@style/WhiteSelectableItemTheme"
-        app:tint="@android:color/white" />
+        android:contentDescription="@string/description_btn_qr_code_detect" />
 
-    <android.support.v7.widget.AppCompatImageButton
+    <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:background="?android:attr/selectableItemBackground"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,6 +68,5 @@
         app:layout_constraintStart_toEndOf="@+id/btnQrCode"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_delete"
-        app:theme="@style/WhiteSelectableItemTheme"
-        app:tint="@android:color/white" />
+        android:contentDescription="@string/description_btn_delete_photo" />
 </android.support.constraint.ConstraintLayout>

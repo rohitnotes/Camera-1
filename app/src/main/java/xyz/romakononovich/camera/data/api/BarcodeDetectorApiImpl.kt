@@ -35,9 +35,7 @@ class BarcodeDetectorApiImpl(private val context: Context) : BarcodeDetectorApi 
 
     private fun detectBarcode(bitmap: Bitmap) {
         if (!barcodeDetector.isOperational) {
-            AlertDialog.Builder(context)
-                    .setMessage(context.getString(R.string.device_no_support_barcode_detector))
-                    .show()
+            onBarcodeDetect.invoke(context.getString(R.string.device_no_support_barcode_detector))
         } else {
             val frame = Frame.Builder().setBitmap(bitmap).build()
             val sparseArray = barcodeDetector.detect(frame)

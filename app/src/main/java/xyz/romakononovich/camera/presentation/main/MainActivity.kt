@@ -193,15 +193,20 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
     }
 
     override fun getPathLastPhoto(): String? {
-        return if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
-            File(Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_PICTURES), "Camera").listFiles()?.last()?.absolutePath
+
+        if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
+            if (!File(Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_PICTURES), "Camera").listFiles().isEmpty()) {
+                return File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES), "Camera").listFiles()?.last()?.absolutePath
+            }
         } else {
             requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
-            null
-        }
 
+        }
+        return null
     }
+
 
     override fun makePhoto() {
         if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {

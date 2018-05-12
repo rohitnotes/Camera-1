@@ -22,4 +22,7 @@
     <string name="shortcut_gallery_disabled_message">Disable</string>
 
     <string name="dialog_message_delete">Delete photo?</string>
+    <string name="description_btn_share_photo">Button share photo</string>
+    <string name="description_btn_qr_code_detect">Button QR code detect</string>
+    <string name="description_btn_delete_photo">Button delete photo</string>
 </resources>

@@ -15,7 +15,6 @@ ext {
 buildscript {
     ext.kotlinVersion = '1.2.40'
     repositories {
-        mavenCentral()
         google()
         jcenter()
     }
