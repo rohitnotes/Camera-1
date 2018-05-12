@@ -9,8 +9,6 @@ import xyz.romakononovich.camera.presentation.base.BaseView
  */
 interface GalleryContract {
     interface View : BaseView {
-        var onFaceDetect: (bitmap: Bitmap) -> Unit
-
         var onBarcodeDetect: (source: String) -> Unit
 
         fun showDetectFace()
@@ -22,6 +20,8 @@ interface GalleryContract {
 
     interface Presenter<V : GalleryContract.View> : BasePresenter<V> {
         fun startBarcodeDetector(id: Int)
+
+        fun openFacedetectActivity(id: Int)
 
         fun getPhoto()
 

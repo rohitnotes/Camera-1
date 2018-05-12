@@ -21,10 +21,12 @@ import xyz.romakononovich.camera.presentation.view.CameraPreview
 import xyz.romakononovich.camera.utils.*
 import java.io.File
 import javax.inject.Inject
+import javax.inject.Named
 
 class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
 
     @Inject
+//    @Named("MainActivity")
     lateinit var presenter: MainPresenter<MainContract.View>
 
     private lateinit var orientationEventListener: RotateOrientationEventListener

@@ -17,6 +17,7 @@ import xyz.romakononovich.camera.presentation.view.DeleteDialog
 import xyz.romakononovich.camera.presentation.view.QrCodeDialog
 import xyz.romakononovich.camera.utils.*
 import javax.inject.Inject
+import javax.inject.Named
 
 
 /**
@@ -31,6 +32,7 @@ class GalleryActivity : BaseActivity(),
 
 
     @Inject
+//    @Named("GalleryActivity")
     lateinit var presenter: GalleryPresenter<GalleryContract.View>
     private var galleryAdapter: GalleryAdapter? = null
 
@@ -90,9 +92,6 @@ class GalleryActivity : BaseActivity(),
         toast(getString(R.string.cannot_open_gallery))
     }
 
-    override var onFaceDetect: (bitmap: Bitmap) -> Unit = {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun showDetectFace() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -115,7 +114,7 @@ class GalleryActivity : BaseActivity(),
                 presenter.sharePhoto(viewPager.currentItem)
             }
             btnFace -> {
-
+                presenter.openFacedetectActivity(viewPager.currentItem)
             }
         }
     }
