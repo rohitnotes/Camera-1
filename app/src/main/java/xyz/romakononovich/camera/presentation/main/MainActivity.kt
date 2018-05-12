@@ -1,15 +1,14 @@
 package xyz.romakononovich.camera.presentation.main
 
-import android.Manifest
 import android.content.pm.PackageManager
 import android.hardware.Camera
-import android.os.Build
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.Environment
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.view.View
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.animation.RotateAnimation
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -17,9 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.switches_bottom_camera.*
 import kotlinx.android.synthetic.main.switches_top_camera.*
 import xyz.romakononovich.camera.R
-import xyz.romakononovich.camera.data.api.CameraApiImpl
 import xyz.romakononovich.camera.presentation.base.BaseActivity
-import xyz.romakononovich.camera.presentation.router.RouterImpl
 import xyz.romakononovich.camera.presentation.view.CameraPreview
 import xyz.romakononovich.camera.utils.*
 import java.io.File
@@ -30,9 +27,13 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
     @Inject
     lateinit var presenter: MainPresenter<MainContract.View>
 
+    private lateinit var orientationEventListener: RotateOrientationEventListener
+    private var orientationDegrees = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setPreviewLastPhoto(getPathLastPhoto())
+        initListener()
     }
 
     override fun onResume() {
@@ -44,6 +45,8 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
         } else {
             requestPermission(PERMISSION_CAMERA, REQUEST_PERMISSION_CAMERA)
         }
+        orientationEventListener.checkDetectOrientation()
+
     }
 
     // https://developer.android.com/training/permissions/requesting.html
@@ -60,7 +63,7 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
             }
             REQUEST_PERMISSION_FOR_SAVE_PHOTO -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    presenter.makePhoto()
+                    presenter.makePhoto(orientationDegrees)
                 } else {
                     showCannotSavePhotoToast()
                 }
@@ -82,10 +85,28 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+    private fun initListener() {
+        orientationEventListener = object : RotateOrientationEventListener(this@MainActivity, SensorManager.SENSOR_DELAY_NORMAL) {
+            override fun onRotateChanged(startDeg: Int, endDeg: Int) {
+                val anim = RotateAnimation(startDeg.toFloat(), endDeg.toFloat(), Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+                orientationDegrees = endDeg
+                anim.duration = 500L
+                anim.fillAfter = true
+                btnGrid.startRotate(anim)
+                btnFlash.startRotate(anim)
+                btnChangeCamera.startRotate(anim)
+                ivPhotoCamera.startRotate(anim)
+                ivLastPhoto.startRotate(anim)
+            }
+        }
+        orientationEventListener.checkDetectOrientation()
+    }
 
     override fun onPause() {
         super.onPause()
         presenter.stop()
+        orientationEventListener.disable()
+
     }
 
     override var onCameraChanged: (camera: Camera) -> Unit = {
@@ -99,7 +120,8 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
     }
 
     override fun hideFlash() {
-        btnFlash.visibility = View.GONE
+        btnFlash.clearAnimation()
+        btnFlash.visibility = View.INVISIBLE
     }
 
     override fun showFlashOn() {
@@ -184,7 +206,7 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
     override fun makePhoto() {
         if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
             lockMakePhoto()
-            presenter.makePhoto()
+            presenter.makePhoto(orientationDegrees)
         } else {
             requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_SAVE_PHOTO)
         }

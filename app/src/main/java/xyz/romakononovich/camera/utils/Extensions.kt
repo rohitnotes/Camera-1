@@ -1,11 +1,11 @@
 package xyz.romakononovich.camera.utils
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.os.Build
 import android.util.Log
+import android.view.View
+import android.view.animation.RotateAnimation
 import android.widget.Toast
-import java.io.File
 
 /**
  * Created by RomanK on 05.05.18.
@@ -32,3 +32,19 @@ fun Context.toast(message: CharSequence): Toast = Toast
         .apply {
             show()
         }
+
+fun View.startRotate(rotateAnimation: RotateAnimation) {
+    if (this.visibility == View.VISIBLE) {
+        this.startAnimation(rotateAnimation)
+    }
+
+
+}
+
+fun RotateOrientationEventListener.checkDetectOrientation() {
+    if (this.canDetectOrientation()) {
+        this.enable()
+    } else {
+        this.disable()
+    }
+}

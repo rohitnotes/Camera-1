@@ -36,6 +36,7 @@ class CameraApiImpl() : CameraApi {
     private var facingCameraId = 0
     private var backCameraId = 0
     private var currentCameraId = 0
+    private var orientationDegrees = 0
     private var currentFlashMode = FlashMode.NONE
     private val supportedFlashModes: MutableList<FlashMode> = mutableListOf()
 
@@ -69,7 +70,8 @@ class CameraApiImpl() : CameraApi {
         }
     }
 
-    override fun makePhoto() {
+    override fun makePhoto(orientationDegrees: Int) {
+        this.orientationDegrees = orientationDegrees
         camera?.takePicture(null, null, pictureCallback)
     }
 
@@ -188,13 +190,19 @@ class CameraApiImpl() : CameraApi {
         val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
 
         val matrix = Matrix()
-        //90 это угол поворота изображения
         if (currentCameraId == facingCameraId) {
-            matrix.postRotate(270f)
+            if (orientationDegrees == 0 || orientationDegrees == 90) {
+                matrix.postRotate(orientationDegrees.toFloat() + 270)
+            } else {
+                matrix.postRotate(orientationDegrees.toFloat() - 90)
+            }
         } else if (currentCameraId == backCameraId) {
-            matrix.postRotate(90f)
+            if (orientationDegrees == 0 || orientationDegrees == 180) {
+                matrix.postRotate(orientationDegrees.toFloat() + 90)
+            } else {
+                matrix.postRotate(orientationDegrees.toFloat() - 90)
+            }
         }
-
         val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
 
         getOutputMediaFile(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE).let {

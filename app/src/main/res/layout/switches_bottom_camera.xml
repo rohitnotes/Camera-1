@@ -8,9 +8,9 @@
 
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btnChangeCamera"
-        android:layout_width="46dp"
-        android:layout_height="46dp"
-        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@android:color/transparent"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnMakePhoto"
@@ -22,9 +22,12 @@
 
     <ImageView
         android:id="@+id/ivPhotoCamera"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:clickable="false"
         android:contentDescription="@string/iv_description_camera_change"
+        android:padding="20dp"
+        android:tint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnMakePhoto"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,13 +50,11 @@
 
     <ImageView
         android:id="@+id/ivLastPhoto"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_margin="8dp"
-        android:background="?android:attr/selectableItemBackground"
         android:contentDescription="@string/iv_description_open_gallery"
         android:onClick="onClick"
-        android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnMakePhoto"

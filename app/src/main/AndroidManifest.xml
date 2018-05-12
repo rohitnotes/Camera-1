@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name=".presentation.gallery.GalleryActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />

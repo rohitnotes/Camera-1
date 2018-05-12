@@ -24,7 +24,7 @@ interface CameraApi {
 
     fun changeCamera()
 
-    fun makePhoto()
+    fun makePhoto(orientationDegrees: Int)
 
     fun changeFlashMode()
 

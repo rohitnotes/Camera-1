@@ -54,8 +54,8 @@ class MainPresenter<V : MainContract.View>
         cameraApi.changeCamera()
     }
 
-    override fun makePhoto() {
-        cameraApi.makePhoto()
+    override fun makePhoto(orientationDegrees: Int) {
+        cameraApi.makePhoto(orientationDegrees)
     }
 
     override fun changeFlash() {

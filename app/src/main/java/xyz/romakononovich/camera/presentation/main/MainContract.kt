@@ -49,7 +49,7 @@ interface MainContract {
 
         fun changeCamera()
 
-        fun makePhoto()
+        fun makePhoto(orientationDegrees: Int)
 
         fun changeFlash()
 
