@@ -4,16 +4,16 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.hardware.Camera
+import android.media.ExifInterface
+import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import com.bumptech.glide.load.resource.transcode.BitmapBytesTranscoder
 import xyz.romakononovich.camera.utils.catchAll
 import xyz.romakononovich.camera.data.executor.MainThreadImpl
 import xyz.romakononovich.camera.data.model.FlashMode
 import xyz.romakononovich.camera.domain.api.CameraApi
 import xyz.romakononovich.camera.utils.ALBUM_NAME
-import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -22,7 +22,7 @@ import java.util.*
 /**
  * Created by RomanK on 05.05.18.
  */
-class CameraApiImpl() : CameraApi {
+class CameraApiImpl : CameraApi {
 
     private companion object {
         val TAG = CameraApiImpl::class.java.simpleName
@@ -113,6 +113,15 @@ class CameraApiImpl() : CameraApi {
         releaseCamera()
         catchAll("open camera", {
             camera = Camera.open(cameraId)
+            val parameters = camera?.parameters
+            val allSizePhoto = parameters?.supportedPictureSizes
+            allSizePhoto?.sortBy { it.width }
+            val sizePhoto = allSizePhoto?.get(allSizePhoto.size - 1)
+            if (sizePhoto != null) {
+                parameters.setPictureSize(sizePhoto.width, sizePhoto.height)
+                camera?.parameters = parameters
+            }
+
             cameraChanged()
         })
         initFlashModes()
@@ -203,11 +212,11 @@ class CameraApiImpl() : CameraApi {
                 matrix.postRotate(orientationDegrees.toFloat() - 90)
             }
         }
+        Log.d("TAG", orientationDegrees.toString())
         val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
 
         getOutputMediaFile(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE).let {
             // it -> picture file
-
             if (it == null) {
                 Log.d(TAG, "Error creating media file, check storage permissions")
                 onPhotoSavedFail.invoke()
@@ -220,6 +229,7 @@ class CameraApiImpl() : CameraApi {
                         rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, fos)
                         fos.flush()
                         fos.close()
+                        writeExif(it)
                         mainThread?.post { onPhotoSaved.invoke(it.absolutePath) }
                     })
                 }).start()
@@ -228,6 +238,15 @@ class CameraApiImpl() : CameraApi {
                 cameraChanged()
             }
         }
+    }
+
+    private fun writeExif(photo: File) {
+        catchAll("error write exif", {
+            val exif = ExifInterface(photo.canonicalPath)
+            exif.setAttribute(ExifInterface.TAG_MAKE, Build.MANUFACTURER)
+            exif.setAttribute(ExifInterface.TAG_MODEL, Build.MODEL)
+            exif.saveAttributes()
+        })
     }
 
     // Create a File for saving an image or video

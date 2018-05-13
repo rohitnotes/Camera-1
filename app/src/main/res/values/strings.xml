@@ -9,6 +9,15 @@
     <string name="dialog_btn_open_web">Open site</string>
     <string name="dialog_btn_delete">Delete</string>
     <string name="dialog_dtn_cancel">Cancel</string>
+    <string name="dialog_info_title">Information</string>
+    <string name="dialog_info_name">Name</string>
+    <string name="dialog_info_author">Author</string>
+    <string name="dialog_info_time">Time</string>
+    <string name="dialog_info_height">Height</string>
+    <string name="dialog_info_width">Width</string>
+    <string name="dialog_info_model">Model</string>
+    <string name="dialog_info_size">Size file</string>
+    <string name="dialog_info_path">Path</string>
     <string name="share_photo_text">Share photo</string>
     <string name="device_no_support_barcode_detector">Barcode Detector could not be set up on your device :(</string>
     <string name="device_no_support_face_detector">Face Detector could not be set up on your device :(</string>

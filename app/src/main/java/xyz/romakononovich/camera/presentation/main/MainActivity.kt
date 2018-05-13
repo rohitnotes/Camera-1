@@ -124,6 +124,7 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
     override fun hideFlash() {
         btnFlash.clearAnimation()
         btnFlash.visibility = View.INVISIBLE
+        btnFlash.visibility = View.INVISIBLE
     }
 
     override fun showFlashOn() {

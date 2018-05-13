@@ -46,7 +46,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providePhotoRepository(): PhotoRepository = PhotoRepositoryImpl()
+    fun providePhotoRepository(context: Context): PhotoRepository = PhotoRepositoryImpl(context)
 
     @Singleton
     @Provides

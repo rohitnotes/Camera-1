@@ -2,11 +2,7 @@ package xyz.romakononovich.camera.presentation.gallery
 
 import android.animation.ObjectAnimator
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.view.View
 import kotlinx.android.synthetic.main.activity_gallery.*
 import kotlinx.android.synthetic.main.switches_bottom_gallery.*
@@ -14,10 +10,10 @@ import kotlinx.android.synthetic.main.toolbar.*
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.presentation.base.BaseActivity
 import xyz.romakononovich.camera.presentation.view.DeleteDialog
+import xyz.romakononovich.camera.presentation.view.InfoDialog
 import xyz.romakononovich.camera.presentation.view.QrCodeDialog
 import xyz.romakononovich.camera.utils.*
 import javax.inject.Inject
-import javax.inject.Named
 
 
 /**
@@ -31,8 +27,8 @@ class GalleryActivity : BaseActivity(),
         DeleteDialog.DeleteDialogListener {
 
 
+
     @Inject
-//    @Named("GalleryActivity")
     lateinit var presenter: GalleryPresenter<GalleryContract.View>
     private var galleryAdapter: GalleryAdapter? = null
 
@@ -70,6 +66,10 @@ class GalleryActivity : BaseActivity(),
         QrCodeDialog.newInstance(it).show(supportFragmentManager, QRCODE_DIALOG)
     }
 
+    override var onGetInfo: (source: String) -> Unit = {
+        InfoDialog.newInstance(it).show(supportFragmentManager,INFO_DIALOG)
+    }
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
@@ -93,8 +93,8 @@ class GalleryActivity : BaseActivity(),
     }
 
 
-    override fun showDetectFace() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showDetectFace(source: String) {
+        toast(source)
     }
 
     override fun onDeleteDialogPositiveClick(id: Int) {
@@ -115,6 +115,9 @@ class GalleryActivity : BaseActivity(),
             }
             btnFace -> {
                 presenter.openFacedetectActivity(viewPager.currentItem)
+            }
+            btnInfo -> {
+                presenter.showInfoPhoto(viewPager.currentItem)
             }
         }
     }

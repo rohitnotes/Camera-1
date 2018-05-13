@@ -11,7 +11,9 @@ interface GalleryContract {
     interface View : BaseView {
         var onBarcodeDetect: (source: String) -> Unit
 
-        fun showDetectFace()
+        var onGetInfo: (source: String) -> Unit
+
+        fun showDetectFace(source: String)
 
         fun initViewPager(list: MutableList<String>)
 
@@ -22,6 +24,8 @@ interface GalleryContract {
         fun startBarcodeDetector(id: Int)
 
         fun openFacedetectActivity(id: Int)
+
+        fun showInfoPhoto(id: Int)
 
         fun getPhoto()
 

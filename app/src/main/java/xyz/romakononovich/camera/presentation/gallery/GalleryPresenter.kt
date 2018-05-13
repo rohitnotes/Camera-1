@@ -14,6 +14,7 @@ class GalleryPresenter<V : GalleryContract.View>
                     private val repository: PhotoRepository,
                     private val router: Router) : BasePresenterImpl<V>(), GalleryContract.Presenter<V> {
 
+
     override fun getPhoto() {
 
 
@@ -26,6 +27,11 @@ class GalleryPresenter<V : GalleryContract.View>
                 view()?.onBarcodeDetect?.invoke(it)
             }
         }
+        repository.run {
+            onGetInfo = {
+                view()?.onGetInfo?.invoke(it)
+            }
+        }
     }
 
     override fun startBarcodeDetector(id: Int) {
@@ -34,6 +40,11 @@ class GalleryPresenter<V : GalleryContract.View>
 
     override fun openFacedetectActivity(id: Int) {
         router.openFacedetectActivity(repository.getListPhoto()[id])
+    }
+
+    override fun showInfoPhoto(id: Int) {
+        repository.getExif(repository.getListPhoto()[id])
+        //view()?.showDetectFace(repository.getExif(repository.getListPhoto()[id]))
     }
 
     override fun deletePhoto(id: Int) {

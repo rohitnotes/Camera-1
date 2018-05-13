@@ -11,11 +11,13 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.domain.api.BarcodeDetectorApi
+import javax.inject.Inject
 
 /**
  * Created by RomanK on 10.05.18.
  */
-class BarcodeDetectorApiImpl(private val context: Context) : BarcodeDetectorApi {
+class BarcodeDetectorApiImpl
+@Inject constructor(private val context: Context) : BarcodeDetectorApi {
     private val barcodeDetector: BarcodeDetector
         get() = initializeBarcodeDetector()
 

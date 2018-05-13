@@ -5,7 +5,11 @@ package xyz.romakononovich.camera.domain.api
  */
 interface PhotoRepository {
 
+    var onGetInfo: (source: String) -> Unit
+
     fun getListPhoto(): MutableList<String>
 
     fun deletePhoto(path: String)
+
+    fun getExif(path: String)
 }
