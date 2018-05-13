@@ -15,6 +15,7 @@ import java.security.MessageDigest
  */
 class RotateTransformation(rotateRotationAngle: Float) : BitmapTransformation() {
 
+    // TODO Для глайда. Можно удалить
     private var rotate = 0f
 
     init {

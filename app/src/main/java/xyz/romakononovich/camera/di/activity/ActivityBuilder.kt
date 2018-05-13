@@ -5,7 +5,7 @@ import dagger.android.ContributesAndroidInjector
 import xyz.romakononovich.camera.di.scopes.ActivityScope
 import xyz.romakononovich.camera.presentation.facedetect.FaceDetectActivity
 import xyz.romakononovich.camera.presentation.gallery.GalleryActivity
-import xyz.romakononovich.camera.presentation.main.MainActivity
+import xyz.romakononovich.camera.presentation.main.CameraActivity
 
 
 /**
@@ -15,7 +15,7 @@ import xyz.romakononovich.camera.presentation.main.MainActivity
 abstract class ActivityBuilder {
     @ActivityScope
     @ContributesAndroidInjector(modules = [(MainActivityModule::class)])
-    abstract fun providesMainActivityInjector(): MainActivity
+    abstract fun providesMainActivityInjector(): CameraActivity
 
     @ActivityScope
     @ContributesAndroidInjector(modules = [(GalleryActivityModule::class)])

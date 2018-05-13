@@ -21,13 +21,12 @@ import xyz.romakononovich.camera.presentation.view.CameraPreview
 import xyz.romakononovich.camera.utils.*
 import java.io.File
 import javax.inject.Inject
-import javax.inject.Named
 
-class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
+class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener {
 
     @Inject
-//    @Named("MainActivity")
-    lateinit var presenter: MainPresenter<MainContract.View>
+//    @Named("CameraActivity")
+    lateinit var presenter: CameraPresenter<CameraContract.View>
 
     private lateinit var orientationEventListener: RotateOrientationEventListener
     private var orientationDegrees = 0
@@ -88,7 +87,7 @@ class MainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
     }
 
     private fun initListener() {
-        orientationEventListener = object : RotateOrientationEventListener(this@MainActivity, SensorManager.SENSOR_DELAY_NORMAL) {
+        orientationEventListener = object : RotateOrientationEventListener(this@CameraActivity, SensorManager.SENSOR_DELAY_NORMAL) {
             override fun onRotateChanged(startDeg: Int, endDeg: Int) {
                 val anim = RotateAnimation(startDeg.toFloat(), endDeg.toFloat(), Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
                 orientationDegrees = endDeg

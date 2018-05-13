@@ -9,11 +9,11 @@ import javax.inject.Inject
 /**
  * Created by RomanK on 05.05.18.
  */
-class MainPresenter<V : MainContract.View>
+class CameraPresenter<V : CameraContract.View>
 @Inject constructor(
         private val cameraApi: CameraApi,
         private val router: Router
-) : BasePresenterImpl<V>(), MainContract.Presenter<V> {
+) : BasePresenterImpl<V>(), CameraContract.Presenter<V> {
 
     init {
         cameraApi.run {

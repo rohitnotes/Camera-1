@@ -8,5 +8,5 @@ interface Router {
 
     fun sharePhoto(path: String)
 
-    fun openFacedetectActivity(path: String)
+    fun openFaceDetectActivity(path: String)
 }

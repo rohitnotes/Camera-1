@@ -26,17 +26,17 @@ class QrCodeDialog : DialogFragment() {
 
         val it: String = arguments!!.getString(QR_CODE)
 
-            val dlg = AlertDialog.Builder(activity!!)
-                    .setMessage(it)
-                    .setNegativeButton(R.string.dialog_btn_close, { _, _ ->
-                        dismiss()
-                    })
-                    .setCancelable(false)
-            if (it.startsWith("http://") || it.startsWith("https://")) {
-                dlg.setPositiveButton(getString(R.string.dialog_btn_open_web), { _, _ ->
-                    CustomTabsIntent.Builder().build().launchUrl(activity, Uri.parse(it))
+        val dlg = AlertDialog.Builder(activity!!)
+                .setMessage(it)
+                .setNegativeButton(R.string.dialog_btn_close, { _, _ ->
+                    dismiss()
                 })
-            }
+                .setCancelable(false)
+        if (it.startsWith("http://") || it.startsWith("https://")) {
+            dlg.setPositiveButton(getString(R.string.dialog_btn_open_web), { _, _ ->
+                CustomTabsIntent.Builder().build().launchUrl(activity, Uri.parse(it))
+            })
+        }
         return dlg.create()
 
 

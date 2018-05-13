@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
-import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_pager.view.*
 import xyz.romakononovich.camera.R
-import xyz.romakononovich.camera.utils.RotateTransformation
 
 /**
  * Created by RomanK on 06.05.18.

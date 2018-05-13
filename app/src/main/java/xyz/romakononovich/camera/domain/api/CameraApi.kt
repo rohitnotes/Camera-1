@@ -14,7 +14,7 @@ interface CameraApi {
 
     var onFlashModeChanged: (FlashMode) -> Unit
 
-    var onPhotoSaved: (path: String)  -> Unit
+    var onPhotoSaved: (path: String) -> Unit
 
     var onPhotoSavedFail: () -> Unit
 

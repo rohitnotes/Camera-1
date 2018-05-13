@@ -16,7 +16,7 @@ import javax.inject.Inject
 /**
  * Created by RomanK on 12.05.18.
  */
-class FacedetectorApiImpl
+class FaceDetectorApiImpl
 @Inject constructor(private val context: Context) : FaceDetectorApi {
     override var onFaceDetectError: (source: String) -> Unit = {}
     override var onFaceDetect: (bitmap: Bitmap) -> Unit = {}

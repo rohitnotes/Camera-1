@@ -2,7 +2,6 @@ package xyz.romakononovich.camera.data.api
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.support.v7.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition

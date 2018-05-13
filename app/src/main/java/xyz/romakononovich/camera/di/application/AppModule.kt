@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import xyz.romakononovich.camera.data.api.BarcodeDetectorApiImpl
 import xyz.romakononovich.camera.data.api.CameraApiImpl
-import xyz.romakononovich.camera.data.api.FacedetectorApiImpl
+import xyz.romakononovich.camera.data.api.FaceDetectorApiImpl
 import xyz.romakononovich.camera.data.api.PhotoRepositoryImpl
 import xyz.romakononovich.camera.domain.api.BarcodeDetectorApi
 import xyz.romakononovich.camera.domain.api.CameraApi
@@ -15,8 +15,8 @@ import xyz.romakononovich.camera.presentation.facedetect.FaceDetectContract
 import xyz.romakononovich.camera.presentation.facedetect.FaceDetectPresenter
 import xyz.romakononovich.camera.presentation.gallery.GalleryContract
 import xyz.romakononovich.camera.presentation.gallery.GalleryPresenter
-import xyz.romakononovich.camera.presentation.main.MainContract
-import xyz.romakononovich.camera.presentation.main.MainPresenter
+import xyz.romakononovich.camera.presentation.main.CameraContract
+import xyz.romakononovich.camera.presentation.main.CameraPresenter
 import xyz.romakononovich.camera.presentation.router.Router
 import javax.inject.Singleton
 
@@ -28,7 +28,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideMainPresenter(cameraApi: CameraApi, router: Router): MainContract.Presenter<*> = MainPresenter<MainContract.View>(cameraApi, router)
+    fun provideMainPresenter(cameraApi: CameraApi, router: Router): CameraContract.Presenter<*> = CameraPresenter<CameraContract.View>(cameraApi, router)
 
     @Singleton
     @Provides
@@ -54,5 +54,5 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideFaceDetectorApi(context: Context): FaceDetectorApi = FacedetectorApiImpl(context)
+    fun provideFaceDetectorApi(context: Context): FaceDetectorApi = FaceDetectorApiImpl(context)
 }

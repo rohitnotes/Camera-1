@@ -7,7 +7,7 @@ import xyz.romakononovich.camera.presentation.base.BaseView
 /**
  * Created by RomanK on 05.05.18.
  */
-interface MainContract {
+interface CameraContract {
 
     interface View : BaseView {
 
@@ -45,7 +45,7 @@ interface MainContract {
 
     }
 
-    interface Presenter<V: MainContract.View> : BasePresenter<V> {
+    interface Presenter<V: CameraContract.View> : BasePresenter<V> {
 
         fun changeCamera()
 

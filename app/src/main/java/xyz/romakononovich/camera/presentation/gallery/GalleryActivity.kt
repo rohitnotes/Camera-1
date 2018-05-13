@@ -27,7 +27,6 @@ class GalleryActivity : BaseActivity(),
         DeleteDialog.DeleteDialogListener {
 
 
-
     @Inject
     lateinit var presenter: GalleryPresenter<GalleryContract.View>
     private var galleryAdapter: GalleryAdapter? = null
@@ -67,7 +66,7 @@ class GalleryActivity : BaseActivity(),
     }
 
     override var onGetInfo: (source: String) -> Unit = {
-        InfoDialog.newInstance(it).show(supportFragmentManager,INFO_DIALOG)
+        InfoDialog.newInstance(it).show(supportFragmentManager, INFO_DIALOG)
     }
 
 
@@ -114,7 +113,7 @@ class GalleryActivity : BaseActivity(),
                 presenter.sharePhoto(viewPager.currentItem)
             }
             btnFace -> {
-                presenter.openFacedetectActivity(viewPager.currentItem)
+                presenter.openFaceDetectActivity(viewPager.currentItem)
             }
             btnInfo -> {
                 presenter.showInfoPhoto(viewPager.currentItem)

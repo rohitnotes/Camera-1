@@ -40,8 +40,7 @@ class RouterImpl(private val activity: Context) : Router {
         activity.startActivity(Intent.createChooser(shareIntent, activity.getString(R.string.share_photo_text)))
     }
 
-    override fun openFacedetectActivity(path: String) {
+    override fun openFaceDetectActivity(path: String) {
         activity.startActivity(Intent(activity, FaceDetectActivity::class.java).addFlags(FLAG_ACTIVITY_NO_ANIMATION).putExtra(INTENT_PATH, path))
-
     }
 }

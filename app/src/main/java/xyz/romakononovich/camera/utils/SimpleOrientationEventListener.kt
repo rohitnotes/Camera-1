@@ -6,9 +6,7 @@ import android.view.OrientationEventListener
 /**
  * Created by RomanK on 11.05.18.
  */
-abstract class SimpleOrientationEventListener : OrientationEventListener {
-    constructor(context: Context) : super(context)
-    constructor(context: Context, rate: Int) : super(context, rate)
+abstract class SimpleOrientationEventListener(context: Context, rate: Int) : OrientationEventListener(context, rate) {
 
     private var lastOrientation = 0
 

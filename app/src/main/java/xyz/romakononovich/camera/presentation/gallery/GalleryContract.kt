@@ -1,6 +1,5 @@
 package xyz.romakononovich.camera.presentation.gallery
 
-import android.graphics.Bitmap
 import xyz.romakononovich.camera.presentation.base.BasePresenter
 import xyz.romakononovich.camera.presentation.base.BaseView
 
@@ -23,11 +22,9 @@ interface GalleryContract {
     interface Presenter<V : GalleryContract.View> : BasePresenter<V> {
         fun startBarcodeDetector(id: Int)
 
-        fun openFacedetectActivity(id: Int)
+        fun openFaceDetectActivity(id: Int)
 
         fun showInfoPhoto(id: Int)
-
-        fun getPhoto()
 
         fun sharePhoto(id: Int)
 

@@ -16,6 +16,7 @@ class CameraPreview(context: Context, private val camera: Camera) : SurfaceView(
     private companion object {
         val TAG = CameraPreview::class.java.simpleName
     }
+
     private val surfaceHolder: SurfaceHolder = holder
 
     init {

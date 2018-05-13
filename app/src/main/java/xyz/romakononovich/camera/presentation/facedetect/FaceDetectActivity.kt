@@ -18,7 +18,6 @@ class FaceDetectActivity : BaseActivity(),
         FaceDetectContract.View {
 
     @Inject
-//    @Named("FaceDetectActivity")
     lateinit var presenter: FaceDetectPresenter<FaceDetectContract.View>
 
 

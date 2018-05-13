@@ -6,6 +6,7 @@ import android.graphics.Bitmap
  * Created by RomanK on 12.05.18.
  */
 interface FaceDetectorApi {
+
     var onFaceDetect: (bitmap: Bitmap) -> Unit
 
     var onFaceDetectError: (source: String) -> Unit
