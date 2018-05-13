@@ -19,16 +19,31 @@ android {
         versionCode globalConf.versionCode
         versionName globalConf.versionName
         vectorDrawables.useSupportLibrary = true
+        resConfigs "en"
+
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+//    splits{
+//        density{
+//            enable true
+//            reset()
+//            include "mdpi", "hdpi"
+//        }
+//        abi {
+//            enable true
+//            reset()
+//            include "x86", "x86_64"
+//        }
+//    }
 }
 
 dependencies {

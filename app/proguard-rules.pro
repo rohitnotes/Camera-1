@@ -19,3 +19,18 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#Glide v4
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+-dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
+
+#Dagger2
+-dontwarn com.google.errorprone.annotations.**
+
+#Google play
+# -keep class com.google.android.gms.internal.** { *; } - размер увеличивается
