@@ -52,9 +52,7 @@ class CameraApiImpl : CameraApi {
 
     override fun start() {
         onCamerasRetrieved.invoke(numberOfCameras)
-        if (camera == null) {
             openCamera(currentCameraId)
-        }
     }
 
     override fun stop() {

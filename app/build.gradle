@@ -6,7 +6,13 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'io.fabric'
+
 def globalConf = rootProject.ext
+def keys = new Properties()
+file("keys.properties").withInputStream {
+    stream -> keys.load(stream)
+}
 
 android {
     compileSdkVersion globalConf.compileSdkVersion
@@ -19,6 +25,7 @@ android {
         versionCode globalConf.versionCode
         versionName globalConf.versionName
         vectorDrawables.useSupportLibrary = true
+        manifestPlaceholders = [fabric_io_id: keys.KEY_FABRIC]
         resConfigs "en"
 
 
@@ -54,13 +61,17 @@ dependencies {
 
     implementation dependencies.kotlin
     implementation dependencies.kotlinJDK7
-    implementation dependencies.constrainLayout
     implementation dependencies.appCompat
-    implementation dependencies.design
+    implementation dependencies.constrainLayout
     implementation dependencies.customTabs
-    implementation dependencies.gVision
-    implementation dependencies.glide
     implementation dependencies.daggerAndroid
+    implementation dependencies.design
+    implementation dependencies.glide
+    implementation dependencies.gVision
+    implementation dependencies.firebaseAnalytics
+    implementation(dependencies.fabricCrashlitics) {
+        transitive = true
+    }
 
     kapt dependencies.daggerKapt
     kapt dependencies.daggerAndroidProcessor
@@ -71,3 +82,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 }
+
+
+apply plugin: 'com.google.gms.google-services'

@@ -25,7 +25,6 @@ import javax.inject.Inject
 class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener {
 
     @Inject
-//    @Named("CameraActivity")
     lateinit var presenter: CameraPresenter<CameraContract.View>
 
     private lateinit var orientationEventListener: RotateOrientationEventListener
@@ -33,9 +32,10 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.onAttach(this)
         setPreviewLastPhoto(getPathLastPhoto())
         initListener()
+        presenter.onAttach(this)
+
     }
 
     override fun onResume() {
@@ -105,7 +105,7 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
 
     override fun onPause() {
         super.onPause()
-        presenter.stop()
+//        presenter.stop()
         orientationEventListener.disable()
 
     }
@@ -141,6 +141,9 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
         btnFlash.setImageResource(R.drawable.ic_flash_off)
     }
 
+    override fun showEmptyGalleryToast() {
+        toast(getString(R.string.empty_gallery))
+    }
     override fun showPhotoSavedToast(path: String) {
         toast(getString(R.string.photo_saved, path))
     }
@@ -206,7 +209,6 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
             }
         } else {
             requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
-
         }
         return null
     }
@@ -225,6 +227,8 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
         if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
             if (getPathLastPhoto() != null) {
                 presenter.openGallery()
+            } else {
+                showEmptyGalleryToast()
             }
         } else {
             requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_OPEN_GALLERY)

@@ -8,6 +8,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -37,6 +38,9 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity android:name=".presentation.facedetect.FaceDetectActivity" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="${fabric_io_id}" />
     </application>
 
 </manifest>

@@ -27,6 +27,8 @@ interface CameraContract {
 
         fun showFlashOff()
 
+        fun showEmptyGalleryToast()
+
         fun showPhotoSavedToast(path: String)
 
         fun lockMakePhoto()

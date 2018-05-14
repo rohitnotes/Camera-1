@@ -1,38 +1,43 @@
 ext {
     // App dependencies
-    supportLibraryVersion = '27.1.1'
-    constrainVersion = '1.0.2'
-    glideVersion = '4.7.1'
-    gVisionVersion = '15.0.0'
-    daggerVersion = '2.14.1'
-    jUnitVersion = '4.12'
-    espressoVersion = '2.2.2'
+    supportLibraryVersion  = '27.1.1'
+    constrainVersion       = '1.0.2'
+    glideVersion           = '4.7.1'
+    gVisionVersion         = '15.0.0'
+    daggerVersion          = '2.14.1'
+    firebaseVersion        = '15.0.2'
+    jUnitVersion           = '4.12'
+    espressoVersion        = '2.2.2'
 
     dependencies = [
-            kotlin          : "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
-            kotlinJDK7      : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            kotlin                       : "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
+            kotlinJDK7                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
 
-            appCompat       : "com.android.support:appcompat-v7:$supportLibraryVersion",
+            appCompat                    : "com.android.support:appcompat-v7:$supportLibraryVersion",
         
-            design       : "com.android.support:design:$supportLibraryVersion",
+            design                       : "com.android.support:design:$supportLibraryVersion",
         
-            customTabs       : "com.android.support:customtabs:$supportLibraryVersion",
+            customTabs                   : "com.android.support:customtabs:$supportLibraryVersion",
         
-            gVision       : "com.google.android.gms:play-services-vision:$gVisionVersion",
+            gVision                      : "com.google.android.gms:play-services-vision:$gVisionVersion",
         
-            dagger       : "com.google.dagger:dagger:$daggerVersion",
+            dagger                       : "com.google.dagger:dagger:$daggerVersion",
         
-            daggerAndroid       : "com.google.dagger:dagger-android:$daggerVersion",
+            daggerAndroid                : "com.google.dagger:dagger-android:$daggerVersion",
         
             daggerAndroidProcessor       : "com.google.dagger:dagger-android-processor:$daggerVersion",
         
-            daggerKapt       : "com.google.dagger:dagger-compiler:$daggerVersion",
+            daggerKapt                   : "com.google.dagger:dagger-compiler:$daggerVersion",
 
-            constrainLayout       : "com.android.support.constraint:constraint-layout:$constrainVersion",
+            constrainLayout              : "com.android.support.constraint:constraint-layout:$constrainVersion",
         
-            glide       : "com.github.bumptech.glide:glide:$glideVersion",
+            firebaseAnalytics            : "com.google.firebase:firebase-core:$firebaseVersion",
         
-            junit           : "junit:junit:$jUnitVersion",
-            espresso        : "com.android.support.test.espresso:espresso-core:$espressoVersion"
+            fabricCrashlitics            : 'com.crashlytics.sdk.android:crashlytics:2.9.2@aar',
+        
+            glide                        : "com.github.bumptech.glide:glide:$glideVersion",
+        
+            junit                        : "junit:junit:$jUnitVersion",
+            espresso                     : "com.android.support.test.espresso:espresso-core:$espressoVersion"
     ]
 }
