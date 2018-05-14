@@ -33,13 +33,13 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        presenter.onAttach(this)
         setPreviewLastPhoto(getPathLastPhoto())
         initListener()
     }
 
     override fun onResume() {
         super.onResume()
-        presenter.onAttach(this)
 
         if (isPermissionGranted(PERMISSION_CAMERA)) {
             presenter.start()
@@ -197,7 +197,9 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
     override fun getPathLastPhoto(): String? {
 
         if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
-            if (!File(Environment.getExternalStoragePublicDirectory(
+            if (File(Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_PICTURES), "Camera").listFiles() != null &&
+                    !File(Environment.getExternalStoragePublicDirectory(
                             Environment.DIRECTORY_PICTURES), "Camera").listFiles().isEmpty()) {
                 return File(Environment.getExternalStoragePublicDirectory(
                         Environment.DIRECTORY_PICTURES), "Camera").listFiles()?.last()?.absolutePath

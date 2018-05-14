@@ -18,6 +18,8 @@ import javax.inject.Inject
  */
 class FaceDetectorApiImpl
 @Inject constructor(private val context: Context) : FaceDetectorApi {
+    var stroke = 0f
+    var cornerRadius = 0f
     override var onFaceDetectError: (source: String) -> Unit = {}
     override var onFaceDetect: (bitmap: Bitmap) -> Unit = {}
 
@@ -27,6 +29,8 @@ class FaceDetectorApiImpl
                 .load(path)
                 .into(object : SimpleTarget<Bitmap>() {
                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        stroke = resource.width / 250f
+                        cornerRadius = resource.width / 150f
                         detectFace(resource)
                     }
 
@@ -35,11 +39,6 @@ class FaceDetectorApiImpl
 
     override fun stop() {
         faceDetector.release()
-    }
-
-    private companion object {
-        const val CORNER_RADIUS = 2f
-        const val STROKE_WIDTH = 2f
     }
 
     private lateinit var tempCanvas: Canvas
@@ -92,7 +91,7 @@ class FaceDetectorApiImpl
             val bottom = top + face.height
 
             val rectF = RectF(left, top, right, bottom)
-            tempCanvas.drawRoundRect(rectF, CORNER_RADIUS, CORNER_RADIUS, rectPaint)
+            tempCanvas.drawRoundRect(rectF, cornerRadius, cornerRadius, rectPaint)
         }
     }
 
@@ -106,7 +105,7 @@ class FaceDetectorApiImpl
 
     private fun Paint.createRectanglePaint() {
         this.apply {
-            strokeWidth = STROKE_WIDTH
+            strokeWidth = stroke
             color = Color.CYAN
             style = Paint.Style.STROKE
         }

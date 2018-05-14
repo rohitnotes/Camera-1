@@ -26,7 +26,7 @@ class QrCodeDialog : DialogFragment() {
 
         val it: String = arguments!!.getString(QR_CODE)
 
-        val dlg = AlertDialog.Builder(activity!!)
+        val dlg = AlertDialog.Builder(requireContext())
                 .setMessage(it)
                 .setNegativeButton(R.string.dialog_btn_close, { _, _ ->
                     dismiss()

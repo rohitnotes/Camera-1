@@ -23,7 +23,7 @@ class DeleteDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val id: Int = arguments!!.getInt(IMAGE_ID)
+        val id: Int = arguments?.getInt(IMAGE_ID) ?:0
 
         val dialogListener = activity
 

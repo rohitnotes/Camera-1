@@ -24,7 +24,7 @@ class InfoDialog : DialogFragment() {
 
         val source = arguments?.getString(SOURCE_DIALOG)
 
-        return AlertDialog.Builder(activity!!)
+        return AlertDialog.Builder(requireContext())
                 .setTitle(R.string.dialog_info_title)
                 .setMessage(source)
                 .setNegativeButton(R.string.dialog_btn_close, { _, _ ->

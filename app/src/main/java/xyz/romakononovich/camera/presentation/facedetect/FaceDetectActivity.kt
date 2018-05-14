@@ -4,6 +4,8 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_facedetect.*
+import kotlinx.android.synthetic.main.toolbar_facedetect.*
+import kotlinx.android.synthetic.main.toolbar_gallery.*
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.presentation.base.BaseActivity
 import xyz.romakononovich.camera.presentation.view.QrCodeDialog
@@ -23,6 +25,13 @@ class FaceDetectActivity : BaseActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setSupportActionBar(toolbarFaceDetect)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+            setDisplayShowTitleEnabled(false)
+            setHomeAsUpIndicator(R.drawable.ic_close)
+        }
         presenter.onAttach(this)
         Glide.with(this)
                 .load(getPath())
@@ -55,6 +64,10 @@ class FaceDetectActivity : BaseActivity(),
         super.onDestroy()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 
     private fun getPath() = intent.extras.getString(INTENT_PATH)
 }

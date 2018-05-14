@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_gallery.*
 import kotlinx.android.synthetic.main.switches_bottom_gallery.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.toolbar_gallery.*
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.presentation.base.BaseActivity
 import xyz.romakononovich.camera.presentation.view.DeleteDialog
@@ -34,7 +34,7 @@ class GalleryActivity : BaseActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbarGallery)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
@@ -141,12 +141,16 @@ class GalleryActivity : BaseActivity(),
         }
     }
 
-    override fun clickViewPager() {
+    override fun onClickViewPager() {
         if (includeToolbar.visibility == View.VISIBLE) {
             showView(false)
         } else {
             showView(true)
         }
+    }
+
+    override fun onLastPageDelete() {
+        finish()
     }
 
     override fun onBackPressed() {

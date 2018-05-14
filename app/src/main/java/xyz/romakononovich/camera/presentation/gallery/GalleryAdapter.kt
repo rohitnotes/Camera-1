@@ -27,11 +27,15 @@ class GalleryAdapter(context: Context) : PagerAdapter() {
 
     fun delete(id: Int) {
         pathsList.removeAt(id)
+        if (pathsList.size == 0) run {
+            clickListener?.onLastPageDelete()
+        }
         notifyDataSetChanged()
     }
 
     interface ClickListener {
-        fun clickViewPager()
+        fun onClickViewPager()
+        fun onLastPageDelete()
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -51,10 +55,9 @@ class GalleryAdapter(context: Context) : PagerAdapter() {
         TransformationUtils.getExifOrientationDegrees(1)
         Glide.with(context)
                 .load(pathsList[position])
-                //.apply(RequestOptions().transforms(RotateTransformation(90f)))
                 .into(itemView.ivPhoto)
         itemView.setOnClickListener {
-            clickListener?.clickViewPager()
+            clickListener?.onClickViewPager()
         }
         container.addView(itemView)
 

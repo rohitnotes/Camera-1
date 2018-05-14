@@ -16,7 +16,7 @@
         android:transitionName="@string/description_photo_in_gallery" />
     <include
         android:id="@+id/includeToolbar"
-        layout="@layout/toolbar"
+        layout="@layout/toolbar_gallery"
         android:visibility="invisible" />
     <include
         android:id="@+id/includeLayoutBottom"
