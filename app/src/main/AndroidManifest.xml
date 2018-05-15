@@ -37,7 +37,8 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-        <activity android:name=".presentation.facedetect.FaceDetectActivity" />
+        <activity android:name=".presentation.facedetect.FaceDetectActivity"
+            android:screenOrientation="portrait"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="${fabric_io_id}" />

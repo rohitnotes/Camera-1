@@ -48,6 +48,7 @@ class GalleryPresenter<V : GalleryContract.View>
     }
 
     override fun start() {
+        barcodeApi.initializeBarcodeDetector()
         view()?.initViewPager(repository.getListPhoto())
     }
 

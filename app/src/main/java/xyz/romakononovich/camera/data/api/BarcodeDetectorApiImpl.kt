@@ -2,6 +2,7 @@ package xyz.romakononovich.camera.data.api
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
@@ -18,7 +19,10 @@ import javax.inject.Inject
 class BarcodeDetectorApiImpl
 @Inject constructor(private val context: Context) : BarcodeDetectorApi {
     private val barcodeDetector: BarcodeDetector
-        get() = initializeBarcodeDetector()
+
+    init {
+        barcodeDetector = initializeBarcodeDetector()
+    }
 
     override var onBarcodeDetect: (source: String) -> Unit = {}
 
@@ -54,7 +58,7 @@ class BarcodeDetectorApiImpl
         barcodeDetector.release()
     }
 
-    private fun initializeBarcodeDetector(): BarcodeDetector {
+    override fun initializeBarcodeDetector(): BarcodeDetector {
         return BarcodeDetector.Builder(context)
                 .setBarcodeFormats(Barcode.QR_CODE)
                 .build()

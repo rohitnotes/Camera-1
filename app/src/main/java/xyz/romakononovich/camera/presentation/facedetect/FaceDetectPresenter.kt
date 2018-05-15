@@ -21,6 +21,11 @@ class FaceDetectPresenter<V : FaceDetectContract.View>
             onFaceDetectError = {
                 view()?.onFaceDetectError?.invoke(it)
             }
+
+            onErrorNoFace = {
+                view()?.onErrorNoFace?.invoke(it)
+            }
+
         }
     }
 

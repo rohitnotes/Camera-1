@@ -52,7 +52,7 @@ class CameraApiImpl : CameraApi {
 
     override fun start() {
         onCamerasRetrieved.invoke(numberOfCameras)
-            openCamera(currentCameraId)
+        openCamera(currentCameraId)
     }
 
     override fun stop() {
@@ -109,21 +109,41 @@ class CameraApiImpl : CameraApi {
         currentCameraId = cameraId
         stopCameraPreview()
         releaseCamera()
-        catchAll("open camera", {
-            camera = Camera.open(cameraId)
-            val parameters = camera?.parameters
-            val allSizePhoto = parameters?.supportedPictureSizes
-            allSizePhoto?.sortBy { it.width }
-            val sizePhoto = allSizePhoto?.get(allSizePhoto.size - 1)
-            if (sizePhoto != null) {
-                parameters.setPictureSize(sizePhoto.width, sizePhoto.height)
-                camera?.parameters = parameters
-            }
+        Thread {
+            catchAll("open camera", {
+                camera = Camera.open(cameraId)
+                val parameters = camera?.parameters
+                val allSizePhoto = parameters?.supportedPictureSizes
+                allSizePhoto?.sortBy { it.width }
+                val sizePhoto = allSizePhoto?.get(allSizePhoto.size - 1)
+                if (sizePhoto != null) {
+                    parameters.setPictureSize(sizePhoto.width, sizePhoto.height)
+                    camera?.parameters = parameters
+                }
+                mainThread?.post {
+                    cameraChanged()
+                    initFlashModes()
+                    initAutoFocus()
+                }
+            })
 
-            cameraChanged()
-        })
-        initFlashModes()
-        initAutoFocus()
+        }.start()
+
+//        catchAll("open camera", {
+//            camera = Camera.open(cameraId)
+//            val parameters = camera?.parameters
+//            val allSizePhoto = parameters?.supportedPictureSizes
+//            allSizePhoto?.sortBy { it.width }
+//            val sizePhoto = allSizePhoto?.get(allSizePhoto.size - 1)
+//            if (sizePhoto != null) {
+//                parameters.setPictureSize(sizePhoto.width, sizePhoto.height)
+//                camera?.parameters = parameters
+//            }
+//            cameraChanged()
+//        })
+//
+//        initFlashModes()
+//        initAutoFocus()
     }
 
     private fun initFlashModes() {
@@ -197,6 +217,7 @@ class CameraApiImpl : CameraApi {
         val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
 
         val matrix = Matrix()
+
         if (currentCameraId == facingCameraId) {
             if (orientationDegrees == 0 || orientationDegrees == 90) {
                 matrix.postRotate(orientationDegrees.toFloat() + 270)
@@ -204,7 +225,7 @@ class CameraApiImpl : CameraApi {
                 matrix.postRotate(orientationDegrees.toFloat() - 90)
             }
         } else if (currentCameraId == backCameraId) {
-            if (orientationDegrees == 0 || orientationDegrees == 180) {
+            if (orientationDegrees == 0 || orientationDegrees == 180 || orientationDegrees == 360) {
                 matrix.postRotate(orientationDegrees.toFloat() + 90)
             } else {
                 matrix.postRotate(orientationDegrees.toFloat() - 90)

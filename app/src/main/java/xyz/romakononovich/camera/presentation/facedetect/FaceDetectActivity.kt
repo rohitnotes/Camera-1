@@ -5,12 +5,12 @@ import android.os.Bundle
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_facedetect.*
 import kotlinx.android.synthetic.main.toolbar_facedetect.*
-import kotlinx.android.synthetic.main.toolbar_gallery.*
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.presentation.base.BaseActivity
 import xyz.romakononovich.camera.presentation.view.QrCodeDialog
 import xyz.romakononovich.camera.utils.INTENT_PATH
 import xyz.romakononovich.camera.utils.QRCODE_DIALOG
+import xyz.romakononovich.camera.utils.toast
 import javax.inject.Inject
 
 /**
@@ -36,6 +36,7 @@ class FaceDetectActivity : BaseActivity(),
         Glide.with(this)
                 .load(getPath())
                 .into(ivFaceDetect)
+        toast(getString(R.string.face_search))
         presenter.startFaceDetector(getPath())
 
     }
@@ -48,8 +49,13 @@ class FaceDetectActivity : BaseActivity(),
 
     override var onFaceDetectError: (source: String) -> Unit = {
         QrCodeDialog.newInstance(it).show(supportFragmentManager, QRCODE_DIALOG)
-
     }
+
+    override var onErrorNoFace: (source: String) -> Unit = {
+        toast(it)
+        finish()
+    }
+
 
     override fun showDetectFace() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

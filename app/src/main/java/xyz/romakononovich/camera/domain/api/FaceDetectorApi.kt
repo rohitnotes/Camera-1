@@ -11,6 +11,8 @@ interface FaceDetectorApi {
 
     var onFaceDetectError: (source: String) -> Unit
 
+    var onErrorNoFace: (source: String) -> Unit
+
     fun start(path: String)
 
     fun stop()

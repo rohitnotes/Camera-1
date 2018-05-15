@@ -10,6 +10,7 @@ import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.face.Face
 import com.google.android.gms.vision.face.FaceDetector
 import xyz.romakononovich.camera.R
+import xyz.romakononovich.camera.data.executor.MainThreadImpl
 import xyz.romakononovich.camera.domain.api.FaceDetectorApi
 import javax.inject.Inject
 
@@ -20,8 +21,12 @@ class FaceDetectorApiImpl
 @Inject constructor(private val context: Context) : FaceDetectorApi {
     var stroke = 0f
     var cornerRadius = 0f
+    private val mainThread = MainThreadImpl.instance
+
     override var onFaceDetectError: (source: String) -> Unit = {}
     override var onFaceDetect: (bitmap: Bitmap) -> Unit = {}
+    override var onErrorNoFace: (source: String) -> Unit = {}
+
 
     override fun start(path: String) {
         Glide.with(context)
@@ -62,22 +67,27 @@ class FaceDetectorApiImpl
 
         when (faceDetector.isOperational) {
             true -> {
-                val frame = Frame
-                        .Builder()
-                        .setBitmap(bitmap)
-                        .build()
+                Thread {
+                    val frame = Frame
+                            .Builder()
+                            .setBitmap(bitmap)
+                            .build()
 
-                val sparseArray = faceDetector.detect(frame)
-
-                loadDetectedResult(sparseArray)
-
+                    val sparseArray = faceDetector.detect(frame)
+                    if (sparseArray.size() == 0) {
+                        mainThread?.post { onErrorNoFace.invoke(context.getString(R.string.face_no_found)) }
+                    } else {
+                        loadDetectedResult(sparseArray)
+                        mainThread?.post { onFaceDetect.invoke(tempBitmap) }
+                    }
+                }.start()
                 faceDetector.release()
             }
             false -> {
                 onFaceDetectError.invoke(context.getString(R.string.device_no_support_face_detector))
             }
         }
-        onFaceDetect.invoke(tempBitmap)
+
     }
 
 
@@ -101,12 +111,13 @@ class FaceDetectorApiImpl
         tempCanvas = Canvas(tempBitmap).apply {
             drawBitmap(bitmap, 0f, 0f, null)
         }
+//        tempBitmap.recycle()
     }
 
     private fun Paint.createRectanglePaint() {
         this.apply {
             strokeWidth = stroke
-            color = Color.CYAN
+            color = Color.YELLOW
             style = Paint.Style.STROKE
         }
     }

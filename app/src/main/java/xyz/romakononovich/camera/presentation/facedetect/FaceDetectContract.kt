@@ -13,6 +13,8 @@ interface FaceDetectContract {
 
         var onFaceDetectError: (source: String) -> Unit
 
+        var onErrorNoFace: (source: String) -> Unit
+
         fun showDetectFace()
     }
 

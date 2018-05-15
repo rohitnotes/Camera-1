@@ -8,3 +8,6 @@
 /build
 /captures
 .externalNativeBuild
+app/fabric.properties
+app/google-services.json
+app/keys.properties

@@ -13,6 +13,7 @@ const val SOURCE_DIALOG = "Source dialog"
 const val INTENT_PATH = "path"
 const val DELETE_DIALOG = "Delete Dialog"
 const val QRCODE_DIALOG = "QR Code Dialog"
+const val FACE_DETECT_DIALOG = "Face detect Dialog"
 const val INFO_DIALOG = "Info Dialog"
 const val PERMISSION_CAMERA = Manifest.permission.CAMERA
 const val REQUEST_PERMISSION_CAMERA = 0

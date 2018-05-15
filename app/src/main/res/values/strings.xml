@@ -6,6 +6,8 @@
     <string name="cannot_save_photo">Cannot save photo: PERMISSION DENIED</string>
     <string name="cannot_open_gallery">Cannot open gallery: PERMISSION DENIED</string>
     <string name="qrcode_no_found">QR code no found</string>
+    <string name="face_no_found">Face no found</string>
+    <string name="face_search">Find face…</string>
     <string name="dialog_btn_close">Close</string>
     <string name="dialog_btn_open_web">Open site</string>
     <string name="dialog_btn_delete">Delete</string>
