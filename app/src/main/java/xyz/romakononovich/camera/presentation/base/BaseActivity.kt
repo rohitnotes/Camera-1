@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.view.WindowManager
 import dagger.android.AndroidInjection
+import xyz.romakononovich.camera.R
 
 /**
  * Created by RomanK on 07.05.18.
@@ -16,6 +17,7 @@ import dagger.android.AndroidInjection
 abstract class BaseActivity : AppCompatActivity(), BaseView {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setFullScreen()
         setContentView(getResLayout())

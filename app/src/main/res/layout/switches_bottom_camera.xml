@@ -11,13 +11,13 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/iv_description_camera_change"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnMakePhoto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_rotate"
-        android:contentDescription= "@string/iv_description_camera_change" />
+        app:srcCompat="@drawable/ic_rotate" />
 
     <ImageView
         android:id="@+id/ivPhotoCamera"

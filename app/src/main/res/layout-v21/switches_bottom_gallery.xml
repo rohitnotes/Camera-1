@@ -20,8 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_share"
-        app:theme="@style/WhiteSelectableItemTheme"
-        app:tint="@android:color/white" />
+        app:theme="@style/WhiteSelectableItemTheme"/>
 
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btnFace"
@@ -36,8 +35,7 @@
         app:layout_constraintStart_toEndOf="@+id/btnShare"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_faces"
-        app:theme="@style/WhiteSelectableItemTheme"
-        app:tint="@android:color/white" />
+        app:theme="@style/WhiteSelectableItemTheme" />
 
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btnQrCode"
@@ -52,8 +50,7 @@
         app:layout_constraintStart_toEndOf="@+id/btnFace"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_qr_code"
-        app:theme="@style/WhiteSelectableItemTheme"
-        app:tint="@android:color/white" />
+        app:theme="@style/WhiteSelectableItemTheme" />
 
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btnDelete"
@@ -68,6 +65,5 @@
         app:layout_constraintStart_toEndOf="@+id/btnQrCode"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_delete"
-        app:theme="@style/WhiteSelectableItemTheme"
-        app:tint="@android:color/white" />
+        app:theme="@style/WhiteSelectableItemTheme" />
 </android.support.constraint.ConstraintLayout>

@@ -18,7 +18,9 @@ interface GalleryContract {
 
         fun refreshListPager(list: MutableList<String>)
 
-        fun showCannotOpenGalleryToast()
+        fun showCannotOpenGalleryToastEmpty()
+
+        fun showCannotOpenGalleryToastPermission()
     }
 
     interface Presenter<V : GalleryContract.View> : BasePresenter<V> {

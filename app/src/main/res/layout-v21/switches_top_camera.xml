@@ -19,8 +19,7 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:onClick="onClick"
         app:srcCompat="@drawable/ic_grid_on"
-        app:theme="@style/WhiteSelectableItemTheme"
-        app:tint="@android:color/white" />
+        app:theme="@style/WhiteSelectableItemTheme" />
 
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btnFlash"
@@ -32,6 +31,5 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:onClick="onClick"
         app:srcCompat="@drawable/ic_flash_off"
-        app:theme="@style/WhiteSelectableItemTheme"
-        app:tint="@android:color/white" />
+        app:theme="@style/WhiteSelectableItemTheme"/>
 </RelativeLayout>

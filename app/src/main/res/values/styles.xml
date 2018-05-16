@@ -11,5 +11,11 @@
     <style name="WhiteSelectableItemTheme">
         <item name="colorControlHighlight">#fff</item>
     </style>
-
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>

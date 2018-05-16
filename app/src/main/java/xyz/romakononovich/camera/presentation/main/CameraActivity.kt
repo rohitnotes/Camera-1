@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.os.Environment
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -19,7 +18,6 @@ import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.presentation.base.BaseActivity
 import xyz.romakononovich.camera.presentation.view.CameraPreview
 import xyz.romakononovich.camera.utils.*
-import java.io.File
 import javax.inject.Inject
 
 class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener {
@@ -39,19 +37,20 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
 
     override fun onResume() {
         super.onResume()
-
-        if (isPermissionGranted(PERMISSION_CAMERA)) {
-            presenter.start()
-        } else {
-            requestPermission(PERMISSION_CAMERA, REQUEST_PERMISSION_CAMERA)
-        }
+        orientationEventListener.checkDetectOrientation()
         if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
             setPreviewLastPhoto(getPathLastPhoto())
         } else {
             requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
         }
 
-        orientationEventListener.checkDetectOrientation()
+        if (isPermissionGranted(PERMISSION_CAMERA)) {
+            presenter.start()
+        } else {
+            requestPermission(PERMISSION_CAMERA, REQUEST_PERMISSION_CAMERA)
+        }
+
+
 
     }
 
@@ -152,7 +151,7 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
     }
 
     override fun showPhotoSavedToast(path: String) {
-        toast(getString(R.string.photo_saved, path))
+        // toast(getString(R.string.photo_saved, path))
     }
 
     override fun showCannotShowCameraToast() {
@@ -164,7 +163,7 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
     }
 
     override fun showCannotOpenGalleryToast() {
-        toast(getString(R.string.cannot_open_gallery))
+        toast(getString(R.string.cannot_open_gallery_permission))
     }
 
     private fun showFlash() {
@@ -205,9 +204,8 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
     }
 
     override fun getPathLastPhoto(): String? {
-        if (getListFiles() != null &&
-                !getListFiles().isEmpty()) {
-            return getSortedByNameListFiles().first().absolutePath
+        if (!getSortedByNameListFiles().isEmpty()) {
+            return getSortedByNameListFiles().first()
         }
         requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
 

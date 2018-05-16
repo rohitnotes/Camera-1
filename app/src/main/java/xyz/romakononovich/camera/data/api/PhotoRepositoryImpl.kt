@@ -18,14 +18,7 @@ class PhotoRepositoryImpl
 @Inject constructor(private val context: Context) : PhotoRepository {
     override var onGetInfo: (source: String) -> Unit = {}
 
-    override fun getListPhoto(): MutableList<String> {
-        val storageDir = getSortedByNameListFiles()
-        val pathsList: MutableList<String> = ArrayList()
-        for (image in storageDir) {
-            pathsList.add(image.absolutePath)
-        }
-        return pathsList
-    }
+    override fun getListPhoto(): MutableList<String>  = getSortedByNameListFiles()
 
     override fun deletePhoto(path: String) {
         File(path).delete()

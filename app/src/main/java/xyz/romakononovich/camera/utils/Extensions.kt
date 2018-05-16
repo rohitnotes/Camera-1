@@ -8,6 +8,7 @@ import android.view.View
 import android.view.animation.RotateAnimation
 import android.widget.Toast
 import java.io.File
+import java.util.ArrayList
 
 /**
  * Created by RomanK on 05.05.18.
@@ -43,7 +44,19 @@ fun View.startRotate(rotateAnimation: RotateAnimation) {
 
 }
 
-fun getSortedByNameListFiles() = getListFiles().sortedWith(Comparator<File> { p0, p1 -> p0.name.compareTo(p1.name) }).reversed()
+fun getSortedByNameListFiles(): MutableList<String> {
+    val pathsList: MutableList<String> = ArrayList()
+
+    return if (getListFiles() != null) {
+
+        for (image in getListFiles().sortedWith(Comparator<File> { p0, p1 -> p0.name.compareTo(p1.name) }).reversed()) {
+            pathsList.add(image.absolutePath)
+        }
+        pathsList
+    } else {
+        pathsList
+    }
+}
 
 fun getListFiles() = File(Environment.getExternalStoragePublicDirectory(
         Environment.DIRECTORY_PICTURES), ALBUM_NAME).listFiles()

@@ -14,7 +14,6 @@ import xyz.romakononovich.camera.presentation.view.InfoDialog
 import xyz.romakononovich.camera.presentation.view.QrCodeDialog
 import xyz.romakononovich.camera.utils.*
 import javax.inject.Inject
-import android.graphics.BitmapFactory
 import android.graphics.Bitmap
 import android.support.v4.print.PrintHelper
 import com.bumptech.glide.Glide
@@ -60,11 +59,15 @@ class GalleryActivity : BaseActivity(),
     }
 
     override fun initViewPager(list: MutableList<String>) {
-        galleryAdapter = GalleryAdapter(this, list, this)
-        viewPager.adapter = galleryAdapter
-        viewPager.setPageTransformer(true, DepthPageTransformer())
-        viewPager.setOnClickListener(this)
-
+        if (list.isEmpty()) {
+            onBackPressed()
+            showCannotOpenGalleryToastEmpty()
+        } else {
+            galleryAdapter = GalleryAdapter(this, list, this)
+            viewPager.adapter = galleryAdapter
+            viewPager.setPageTransformer(true, DepthPageTransformer())
+            viewPager.setOnClickListener(this)
+        }
     }
 
     override fun refreshListPager(list: MutableList<String>) {
@@ -88,7 +91,7 @@ class GalleryActivity : BaseActivity(),
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     presenter.start()
                 } else {
-                    showCannotOpenGalleryToast()
+                    showCannotOpenGalleryToastPermission()
                     onBackPressed()
                 }
                 return
@@ -98,8 +101,12 @@ class GalleryActivity : BaseActivity(),
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    override fun showCannotOpenGalleryToast() {
-        toast(getString(R.string.cannot_open_gallery))
+    override fun showCannotOpenGalleryToastEmpty() {
+        toast(getString(R.string.empty_gallery))
+    }
+
+    override fun showCannotOpenGalleryToastPermission() {
+        toast(getString(R.string.cannot_open_gallery_permission))
     }
 
 
@@ -173,7 +180,7 @@ class GalleryActivity : BaseActivity(),
     }
 
     override fun onLastPageDelete() {
-        finish()
+        onBackPressed()
     }
 
     override fun onBackPressed() {
