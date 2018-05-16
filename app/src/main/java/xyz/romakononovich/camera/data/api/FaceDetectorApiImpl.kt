@@ -47,7 +47,8 @@ class FaceDetectorApiImpl
         get() = initializeFaceDetector()
 
     override var onFaceDetectError: (source: String) -> Unit = {}
-    override var onFaceDetect: (bitmap: Bitmap) -> Unit = {}
+    override var onFaceShow: (bitmap: Bitmap) -> Unit = {}
+    override var onFaceDetect: () -> Unit = {}
     override var onErrorNoFace: (source: String) -> Unit = {}
     override var onShowLandmarks: (bitmap: Bitmap) -> Unit = {}
     override var onPhotoSaved: (path: String) -> Unit = {}
@@ -94,8 +95,9 @@ class FaceDetectorApiImpl
                     if (sparseArray.size() == 0) {
                         mainThread?.post { onErrorNoFace.invoke(context.getString(R.string.face_no_found)) }
                     } else {
+                        mainThread?.post { onFaceDetect.invoke() }
                         loadDetectedResult(sparseArray)
-                        mainThread?.post { onFaceDetect.invoke(tempBitmapRect) }
+                        mainThread?.post { onFaceShow.invoke(tempBitmapRect) }
                     }
                 }.start()
                 faceDetector.release()

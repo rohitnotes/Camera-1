@@ -9,7 +9,9 @@ import xyz.romakononovich.camera.presentation.base.BaseView
  */
 interface FaceDetectContract {
     interface View : BaseView {
-        var onFaceDetect: (bitmap: Bitmap) -> Unit
+        var onFaceDetect: () -> Unit
+
+        var onFaceShow: (bitmap: Bitmap) -> Unit
 
         var onShowLandmarks: (bitmap: Bitmap) -> Unit
 
@@ -18,6 +20,8 @@ interface FaceDetectContract {
         var onErrorNoFace: (source: String) -> Unit
 
         fun showPhotoSavedToast(path: String)
+
+        fun showIconEye()
 
         fun closeActivity()
     }

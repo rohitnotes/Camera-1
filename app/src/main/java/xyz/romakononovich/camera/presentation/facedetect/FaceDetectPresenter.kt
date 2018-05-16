@@ -17,9 +17,12 @@ class FaceDetectPresenter<V : FaceDetectContract.View>
     init {
         faceApi.run {
             onFaceDetect = {
-                view()?.onFaceDetect?.invoke(it)
+                view()?.onFaceDetect?.invoke()
             }
 
+            onFaceShow = {
+                view()?.onFaceShow?.invoke(it)
+            }
             onFaceDetectError = {
                 view()?.onFaceDetectError?.invoke(it)
             }
@@ -37,6 +40,7 @@ class FaceDetectPresenter<V : FaceDetectContract.View>
             onPhotoSavedFail = {
 
             }
+
 
         }
     }

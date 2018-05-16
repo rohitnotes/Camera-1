@@ -14,6 +14,12 @@ import xyz.romakononovich.camera.presentation.view.InfoDialog
 import xyz.romakononovich.camera.presentation.view.QrCodeDialog
 import xyz.romakononovich.camera.utils.*
 import javax.inject.Inject
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.support.v4.print.PrintHelper
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 
 
 /**
@@ -60,10 +66,12 @@ class GalleryActivity : BaseActivity(),
         viewPager.setOnClickListener(this)
 
     }
-    override fun refreshListPager(list: MutableList<String>){
+
+    override fun refreshListPager(list: MutableList<String>) {
         galleryAdapter?.refresh(list)
 
     }
+
     override var onBarcodeDetect: (source: String) -> Unit = {
         QrCodeDialog.newInstance(it).show(supportFragmentManager, QRCODE_DIALOG)
     }
@@ -95,8 +103,17 @@ class GalleryActivity : BaseActivity(),
     }
 
 
-    override fun showDetectFace(source: String) {
-        toast(source)
+    override fun printPhoto(path: String) {
+        val photoPrinter = PrintHelper(this)
+        photoPrinter.scaleMode = PrintHelper.SCALE_MODE_FIT
+        Glide.with(this)
+                .asBitmap()
+                .load(path)
+                .into(object : SimpleTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        photoPrinter.printBitmap(path, resource)
+                    }
+                })
     }
 
     override fun onDeleteDialogPositiveClick(id: Int) {
@@ -120,6 +137,9 @@ class GalleryActivity : BaseActivity(),
             }
             btnInfo -> {
                 presenter.showInfoPhoto(viewPager.currentItem)
+            }
+            btnPrint -> {
+                presenter.printPhoto(viewPager.currentItem)
             }
         }
     }

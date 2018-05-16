@@ -12,7 +12,7 @@ interface GalleryContract {
 
         var onGetInfo: (source: String) -> Unit
 
-        fun showDetectFace(source: String)
+        fun printPhoto(path: String)
 
         fun initViewPager(list: MutableList<String>)
 
@@ -29,6 +29,8 @@ interface GalleryContract {
         fun showInfoPhoto(id: Int)
 
         fun sharePhoto(id: Int)
+
+        fun printPhoto(id: Int)
 
         fun deletePhoto(id: Int)
 

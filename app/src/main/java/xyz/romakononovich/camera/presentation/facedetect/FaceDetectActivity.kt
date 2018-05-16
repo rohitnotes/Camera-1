@@ -29,13 +29,13 @@ class FaceDetectActivity : BaseActivity(),
 
     override fun onClick(view: View?) {
         when (view) {
-           btnEye -> {
-               presenter.showLandmarks()
-               fab.show()
-           }
-           fab -> {
-               presenter.savePhoto()
-           }
+            btnEye -> {
+                presenter.showLandmarks()
+                fab.show()
+            }
+            fab -> {
+                presenter.savePhoto()
+            }
         }
     }
 
@@ -61,7 +61,10 @@ class FaceDetectActivity : BaseActivity(),
 
     }
 
-    override var onFaceDetect: (bitmap: Bitmap) -> Unit = {
+    override var onFaceDetect: () -> Unit = {
+        showIconEye()
+    }
+    override var onFaceShow: (bitmap: Bitmap) -> Unit = {
         Glide.with(this)
                 .load(it)
                 .into(ivFaceDetect)
@@ -74,6 +77,10 @@ class FaceDetectActivity : BaseActivity(),
     override var onErrorNoFace: (source: String) -> Unit = {
         toast(it)
         finish()
+    }
+
+    override fun showIconEye() {
+        btnEye.visibility = View.VISIBLE
     }
 
     override fun showPhotoSavedToast(path: String) {

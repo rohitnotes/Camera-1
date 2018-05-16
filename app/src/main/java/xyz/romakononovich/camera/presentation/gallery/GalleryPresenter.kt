@@ -48,6 +48,10 @@ class GalleryPresenter<V : GalleryContract.View>
         router.sharePhoto(repository.getListPhoto()[id])
     }
 
+    override fun printPhoto(id: Int) {
+        view()?.printPhoto(repository.getListPhoto()[id])
+    }
+
     override fun start() {
         barcodeApi.initializeBarcodeDetector()
         view()?.initViewPager(repository.getListPhoto())
