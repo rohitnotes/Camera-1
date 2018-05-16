@@ -3,7 +3,7 @@ package xyz.romakononovich.camera.domain.api
 /**
  * Created by RomanK on 10.05.18.
  */
-interface PhotoRepository {
+interface PhotoApi {
 
     var onGetInfo: (source: String) -> Unit
 

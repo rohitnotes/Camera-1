@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_share"
-        app:theme="@style/WhiteSelectableItemTheme"/>
+        app:theme="@style/WhiteSelectableItemTheme" />
 
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/btnFace"

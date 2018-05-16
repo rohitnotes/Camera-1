@@ -90,7 +90,6 @@ class FaceDetectorApiImpl
                             .Builder()
                             .setBitmap(bitmap)
                             .build()
-
                     sparseArray = faceDetector.detect(frame)
                     if (sparseArray.size() == 0) {
                         mainThread?.post { onErrorNoFace.invoke(context.getString(R.string.face_no_found)) }
@@ -141,7 +140,6 @@ class FaceDetectorApiImpl
     private fun drawEyePatchBitmap(landmarkType: Int, xCoordinate: Float, yCoordinate: Float) {
         when (landmarkType) {
             LEFT_EYE, RIGHT_EYE -> {
-                // TODO: Optimize so that this calculation is not done for every face
                 val scaledWidth = resizeEyeBitmap.getScaledWidth(tempCanvas)
                 val scaledHeight = resizeEyeBitmap.getScaledHeight(tempCanvas)
                 tempCanvas.drawBitmap(resizeEyeBitmap,
@@ -176,7 +174,7 @@ class FaceDetectorApiImpl
         }
     }
 
-    override fun savePhoto(){
+    override fun savePhoto() {
         getOutputMediaFile().let {
             // it -> picture file
             if (it == null) {
@@ -196,6 +194,7 @@ class FaceDetectorApiImpl
             }
         }
     }
+
     private fun getOutputMediaFile(): File? {
         val mediaStorageDir = File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), ALBUM_NAME)
@@ -210,7 +209,7 @@ class FaceDetectorApiImpl
         }
 
         // Create a media file name
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         return File("${mediaStorageDir.path}${File.separator}IMG_$timeStamp.jpg")
     }
 }

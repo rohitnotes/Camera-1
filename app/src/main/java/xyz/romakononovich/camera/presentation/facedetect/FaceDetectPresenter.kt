@@ -11,9 +11,6 @@ import javax.inject.Inject
 class FaceDetectPresenter<V : FaceDetectContract.View>
 @Inject constructor(private val faceApi: FaceDetectorApi,
                     private val router: Router) : BasePresenterImpl<V>(), FaceDetectContract.Presenter<V> {
-
-
-
     init {
         faceApi.run {
             onFaceDetect = {
@@ -40,8 +37,6 @@ class FaceDetectPresenter<V : FaceDetectContract.View>
             onPhotoSavedFail = {
 
             }
-
-
         }
     }
 
@@ -56,12 +51,13 @@ class FaceDetectPresenter<V : FaceDetectContract.View>
     override fun savePhoto() {
         faceApi.savePhoto()
     }
+
     override fun start() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun stop() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        faceApi.stop()
     }
 
 }

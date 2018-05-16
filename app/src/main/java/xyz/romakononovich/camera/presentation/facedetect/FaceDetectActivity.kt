@@ -20,6 +20,8 @@ import javax.inject.Inject
 class FaceDetectActivity : BaseActivity(),
         FaceDetectContract.View, View.OnClickListener {
 
+    @Inject
+    lateinit var presenter: FaceDetectPresenter<FaceDetectContract.View>
 
     override var onShowLandmarks: (bitmap: Bitmap) -> Unit = {
         Glide.with(this)
@@ -39,8 +41,7 @@ class FaceDetectActivity : BaseActivity(),
         }
     }
 
-    @Inject
-    lateinit var presenter: FaceDetectPresenter<FaceDetectContract.View>
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

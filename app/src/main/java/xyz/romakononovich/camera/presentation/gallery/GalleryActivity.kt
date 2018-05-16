@@ -1,5 +1,6 @@
 package xyz.romakononovich.camera.presentation.gallery
 
+import android.Manifest
 import android.animation.ObjectAnimator
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -47,10 +48,10 @@ class GalleryActivity : BaseActivity(),
         }
         presenter.onAttach(this)
 
-        if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
+        if (isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             presenter.start()
         } else {
-            requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_OPEN_GALLERY)
+            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_OPEN_GALLERY)
         }
 
         includeToolbar.visibility = View.VISIBLE

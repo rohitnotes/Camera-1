@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Камера</string>
+    <string name="photo_saved">Cохранено:  %1$s</string>
+    <string name="cannot_show_camera">Не удалось запустить камеру: нет прав</string>
+    <string name="empty_gallery">Не удалось открыть галерею: нет фото</string>
+    <string name="cannot_save_photo">Не удалось сохранить фото: нет прав</string>
+    <string name="qrcode_no_found">QR код не найден</string>
+    <string name="face_no_found">Лицо не обнаружено</string>
+    <string name="face_search">Поиск лица...</string>
+    <string name="dialog_btn_close">Закрыть</string>
+    <string name="dialog_btn_open_web">Открыть сайт</string>
+    <string name="dialog_btn_delete">Удалить</string>
+    <string name="dialog_dtn_cancel">Отменить</string>
+    <string name="dialog_info_title">Информация</string>
+    <string name="dialog_info_name">Имя</string>
+    <string name="dialog_info_author">Автор</string>
+    <string name="dialog_info_time">Время</string>
+    <string name="dialog_info_height">Высота</string>
+    <string name="dialog_info_width">Ширина</string>
+    <string name="dialog_info_model">Модель</string>
+    <string name="dialog_info_size">Размер файла</string>
+    <string name="dialog_info_path">Путь</string>
+    <string name="share_photo_text">Поделиться фото</string>
+    <string name="device_no_support_barcode_detector">Распознование QR кодов не может быть настроено на Вашем устройстве :(</string>
+    <string name="device_no_support_face_detector">Распознование лиц не может быть настроено на Вашем устройстве :(</string>
+    <string name="iv_description_camera_change">Кнопка смены камеры</string>
+    <string name="iv_description_open_gallery">Открыть галерею</string>
+    <string name="description_photo_in_gallery">Фото в галерее</string>
+    <string name="shortcut_camera_short_label">Фото</string>
+    <string name="shortcut_camera_long_label">Фото</string>
+    <string name="shortcut_camera_disabled_message">Отключено</string>
+    <string name="shortcut_gallery_short_label">Галерея</string>
+    <string name="shortcut_gallery_long_label">Галерея</string>
+    <string name="shortcut_gallery_disabled_message">Отключено</string>
+    <string name="dialog_message_delete">Удалить фото?</string>
+    <string name="description_btn_share_photo">Кнопка поделиться фото</string>
+    <string name="description_btn_qr_code_detect">Кнопка QR код детектора</string>
+    <string name="description_btn_delete_photo">Кнопка удалить фото</string>
+    <string name="description_image_with_face_detect">Изображение с детекцией лица</string>
+    <string name="cannot_open_gallery_permission">Не удалось открыть галерею: нет прав</string>
+</resources>

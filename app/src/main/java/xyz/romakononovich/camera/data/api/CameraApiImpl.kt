@@ -128,22 +128,6 @@ class CameraApiImpl : CameraApi {
             })
 
         }.start()
-
-//        catchAll("open camera", {
-//            camera = Camera.open(cameraId)
-//            val parameters = camera?.parameters
-//            val allSizePhoto = parameters?.supportedPictureSizes
-//            allSizePhoto?.sortBy { it.width }
-//            val sizePhoto = allSizePhoto?.get(allSizePhoto.size - 1)
-//            if (sizePhoto != null) {
-//                parameters.setPictureSize(sizePhoto.width, sizePhoto.height)
-//                camera?.parameters = parameters
-//            }
-//            cameraChanged()
-//        })
-//
-//        initFlashModes()
-//        initAutoFocus()
     }
 
     private fun initFlashModes() {
@@ -175,11 +159,6 @@ class CameraApiImpl : CameraApi {
     }
 
     private fun updateFlashMode(mode: FlashMode) {
-        /*camera?.parameters?.flashMode = when (mode) {
-            FlashMode.ON -> Camera.Parameters.FLASH_MODE_ON
-            FlashMode.AUTO -> Camera.Parameters.FLASH_MODE_AUTO
-            else -> Camera.Parameters.FLASH_MODE_OFF
-        }*/
         camera?.parameters = camera?.parameters?.apply {
             flashMode = when (mode) {
                 FlashMode.ON -> Camera.Parameters.FLASH_MODE_ON
@@ -283,7 +262,7 @@ class CameraApiImpl : CameraApi {
         }
 
         // Create a media file name
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         return if (type == MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE)
             File("${mediaStorageDir.path}${File.separator}IMG_$timeStamp.jpg")
         else

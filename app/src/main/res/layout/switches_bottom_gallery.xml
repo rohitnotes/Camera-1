@@ -13,14 +13,14 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/description_btn_share_photo"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnFace"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_share"
-        android:contentDescription="@string/description_btn_share_photo" />
+        app:srcCompat="@drawable/ic_share" />
 
     <ImageButton
         android:id="@+id/btnFace"
@@ -35,8 +35,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnShare"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_faces"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/ic_faces" />
 
     <ImageButton
         android:id="@+id/btnQrCode"
@@ -45,14 +44,14 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/description_btn_qr_code_detect"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnFace"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_qr_code"
-        android:contentDescription="@string/description_btn_qr_code_detect" />
+        app:srcCompat="@drawable/ic_qr_code" />
 
     <ImageButton
         android:id="@+id/btnDelete"
@@ -61,12 +60,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/description_btn_delete_photo"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnQrCode"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_delete"
-        android:contentDescription="@string/description_btn_delete_photo" />
+        app:srcCompat="@drawable/ic_delete" />
 </android.support.constraint.ConstraintLayout>

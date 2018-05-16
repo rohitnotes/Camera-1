@@ -1,8 +1,5 @@
 package xyz.romakononovich.camera.utils
 
-import android.content.Context
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool

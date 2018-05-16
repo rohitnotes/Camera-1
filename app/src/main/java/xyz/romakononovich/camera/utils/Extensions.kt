@@ -46,9 +46,7 @@ fun View.startRotate(rotateAnimation: RotateAnimation) {
 
 fun getSortedByNameListFiles(): MutableList<String> {
     val pathsList: MutableList<String> = ArrayList()
-
     return if (getListFiles() != null) {
-
         for (image in getListFiles().sortedWith(Comparator<File> { p0, p1 -> p0.name.compareTo(p1.name) }).reversed()) {
             pathsList.add(image.absolutePath)
         }

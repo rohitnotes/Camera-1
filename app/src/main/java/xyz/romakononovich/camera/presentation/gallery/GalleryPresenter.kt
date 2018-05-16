@@ -1,7 +1,7 @@
 package xyz.romakononovich.camera.presentation.gallery
 
 import xyz.romakononovich.camera.domain.api.BarcodeDetectorApi
-import xyz.romakononovich.camera.domain.api.PhotoRepository
+import xyz.romakononovich.camera.domain.api.PhotoApi
 import xyz.romakononovich.camera.presentation.base.BasePresenterImpl
 import xyz.romakononovich.camera.presentation.router.Router
 import javax.inject.Inject
@@ -11,7 +11,7 @@ import javax.inject.Inject
  */
 class GalleryPresenter<V : GalleryContract.View>
 @Inject constructor(private val barcodeApi: BarcodeDetectorApi,
-                    private val repository: PhotoRepository,
+                    private val photoApi: PhotoApi,
                     private val router: Router) : BasePresenterImpl<V>(), GalleryContract.Presenter<V> {
 
 
@@ -21,7 +21,7 @@ class GalleryPresenter<V : GalleryContract.View>
                 view()?.onBarcodeDetect?.invoke(it)
             }
         }
-        repository.run {
+        photoApi.run {
             onGetInfo = {
                 view()?.onGetInfo?.invoke(it)
             }
@@ -29,36 +29,36 @@ class GalleryPresenter<V : GalleryContract.View>
     }
 
     override fun startBarcodeDetector(id: Int) {
-        barcodeApi.start(repository.getListPhoto()[id])
+        barcodeApi.start(photoApi.getListPhoto()[id])
     }
 
     override fun openFaceDetectActivity(id: Int) {
-        router.openFaceDetectActivity(repository.getListPhoto()[id])
+        router.openFaceDetectActivity(photoApi.getListPhoto()[id])
     }
 
     override fun showInfoPhoto(id: Int) {
-        repository.getExif(repository.getListPhoto()[id])
+        photoApi.getExif(photoApi.getListPhoto()[id])
     }
 
     override fun deletePhoto(id: Int) {
-        repository.deletePhoto(repository.getListPhoto()[id])
+        photoApi.deletePhoto(photoApi.getListPhoto()[id])
     }
 
     override fun sharePhoto(id: Int) {
-        router.sharePhoto(repository.getListPhoto()[id])
+        router.sharePhoto(photoApi.getListPhoto()[id])
     }
 
     override fun printPhoto(id: Int) {
-        view()?.printPhoto(repository.getListPhoto()[id])
+        view()?.printPhoto(photoApi.getListPhoto()[id])
     }
 
     override fun start() {
         barcodeApi.initializeBarcodeDetector()
-        view()?.initViewPager(repository.getListPhoto())
+        view()?.initViewPager(photoApi.getListPhoto())
     }
 
     override fun refreshList() {
-        view()?.refreshListPager(repository.getListPhoto())
+        view()?.refreshListPager(photoApi.getListPhoto())
     }
 
     override fun stop() {

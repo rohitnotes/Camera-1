@@ -22,7 +22,7 @@ import java.io.File
 class RouterImpl(private val context: Context) : Router {
 
     override fun openGallery() {
-//        context.startActivity(Intent(context, GalleryActivity::class.java))
+        context.startActivity(Intent(context, GalleryActivity::class.java))
         ifElseLollipop({
             context.startActivity(Intent(context, GalleryActivity::class.java),
                     ActivityOptions.makeSceneTransitionAnimation(context as Activity,

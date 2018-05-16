@@ -31,5 +31,5 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:onClick="onClick"
         app:srcCompat="@drawable/ic_flash_off"
-        app:theme="@style/WhiteSelectableItemTheme"/>
+        app:theme="@style/WhiteSelectableItemTheme" />
 </RelativeLayout>

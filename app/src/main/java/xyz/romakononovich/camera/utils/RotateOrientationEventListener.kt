@@ -5,8 +5,7 @@ import android.content.Context
 /**
  * Created by RomanK on 11.05.18.
  */
-abstract class RotateOrientationEventListener : SimpleOrientationEventListener {
-    constructor(context: Context, rate: Int) : super(context, rate)
+abstract class RotateOrientationEventListener(context: Context, rate: Int) : SimpleOrientationEventListener(context, rate) {
 
     override fun onChanged(lastOrientation: Int, orientation: Int) {
         val startDeg = when (lastOrientation) {

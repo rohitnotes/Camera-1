@@ -1,5 +1,6 @@
 package xyz.romakononovich.camera.presentation.main
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.hardware.SensorManager
@@ -18,6 +19,7 @@ import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.presentation.base.BaseActivity
 import xyz.romakononovich.camera.presentation.view.CameraPreview
 import xyz.romakononovich.camera.utils.*
+import java.util.*
 import javax.inject.Inject
 
 class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener {
@@ -32,22 +34,21 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
         super.onCreate(savedInstanceState)
         initListener()
         presenter.onAttach(this)
-
     }
 
     override fun onResume() {
         super.onResume()
         orientationEventListener.checkDetectOrientation()
-        if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
+        if (isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             setPreviewLastPhoto(getPathLastPhoto())
         } else {
-            requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
+            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
         }
 
-        if (isPermissionGranted(PERMISSION_CAMERA)) {
+        if (isPermissionGranted(Manifest.permission.CAMERA)) {
             presenter.start()
         } else {
-            requestPermission(PERMISSION_CAMERA, REQUEST_PERMISSION_CAMERA)
+            requestPermission(Manifest.permission.CAMERA, REQUEST_PERMISSION_CAMERA)
         }
 
 
@@ -207,30 +208,30 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
         if (!getSortedByNameListFiles().isEmpty()) {
             return getSortedByNameListFiles().first()
         }
-        requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
+        requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
 
         return null
     }
 
 
     override fun makePhoto() {
-        if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
+        if (isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             lockMakePhoto()
             presenter.makePhoto(orientationDegrees)
         } else {
-            requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_SAVE_PHOTO)
+            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_SAVE_PHOTO)
         }
     }
 
     override fun openGallery() {
-        if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
+        if (isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             if (getPathLastPhoto() != null) {
                 presenter.openGallery()
             } else {
                 showEmptyGalleryToast()
             }
         } else {
-            requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_OPEN_GALLERY)
+            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_OPEN_GALLERY)
         }
     }
 

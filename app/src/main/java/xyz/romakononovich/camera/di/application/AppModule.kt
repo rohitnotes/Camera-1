@@ -3,14 +3,8 @@ package xyz.romakononovich.camera.di.application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import xyz.romakononovich.camera.data.api.BarcodeDetectorApiImpl
-import xyz.romakononovich.camera.data.api.CameraApiImpl
-import xyz.romakononovich.camera.data.api.FaceDetectorApiImpl
-import xyz.romakononovich.camera.data.api.PhotoRepositoryImpl
-import xyz.romakononovich.camera.domain.api.BarcodeDetectorApi
-import xyz.romakononovich.camera.domain.api.CameraApi
-import xyz.romakononovich.camera.domain.api.FaceDetectorApi
-import xyz.romakononovich.camera.domain.api.PhotoRepository
+import xyz.romakononovich.camera.data.api.*
+import xyz.romakononovich.camera.domain.api.*
 import xyz.romakononovich.camera.presentation.facedetect.FaceDetectContract
 import xyz.romakononovich.camera.presentation.facedetect.FaceDetectPresenter
 import xyz.romakononovich.camera.presentation.gallery.GalleryContract
@@ -32,7 +26,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideGalleryPresenter(barcodeApi: BarcodeDetectorApi, repository: PhotoRepository, router: Router): GalleryContract.Presenter<*> = GalleryPresenter<GalleryContract.View>(barcodeApi, repository, router)
+    fun provideGalleryPresenter(barcodeApi: BarcodeDetectorApi, repository: PhotoApi, router: Router): GalleryContract.Presenter<*> = GalleryPresenter<GalleryContract.View>(barcodeApi, repository, router)
 
     @Singleton
     @Provides
@@ -46,7 +40,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providePhotoRepository(context: Context): PhotoRepository = PhotoRepositoryImpl(context)
+    fun providePhotoRepository(context: Context): PhotoApi = PhotoApiImpl(context)
 
     @Singleton
     @Provides
