@@ -12,6 +12,8 @@ class FaceDetectPresenter<V : FaceDetectContract.View>
 @Inject constructor(private val faceApi: FaceDetectorApi,
                     private val router: Router) : BasePresenterImpl<V>(), FaceDetectContract.Presenter<V> {
 
+
+
     init {
         faceApi.run {
             onFaceDetect = {
@@ -25,6 +27,16 @@ class FaceDetectPresenter<V : FaceDetectContract.View>
             onErrorNoFace = {
                 view()?.onErrorNoFace?.invoke(it)
             }
+            onShowLandmarks = {
+                view()?.onShowLandmarks?.invoke(it)
+            }
+            onPhotoSaved = {
+                view()?.showPhotoSavedToast(it)
+                view()?.closeActivity()
+            }
+            onPhotoSavedFail = {
+
+            }
 
         }
     }
@@ -33,6 +45,13 @@ class FaceDetectPresenter<V : FaceDetectContract.View>
         faceApi.start(path)
     }
 
+    override fun showLandmarks() {
+        faceApi.detectLandmarks()
+    }
+
+    override fun savePhoto() {
+        faceApi.savePhoto()
+    }
     override fun start() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

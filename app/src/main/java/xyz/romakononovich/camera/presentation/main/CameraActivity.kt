@@ -32,7 +32,6 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setPreviewLastPhoto(getPathLastPhoto())
         initListener()
         presenter.onAttach(this)
 
@@ -46,6 +45,12 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
         } else {
             requestPermission(PERMISSION_CAMERA, REQUEST_PERMISSION_CAMERA)
         }
+        if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
+            setPreviewLastPhoto(getPathLastPhoto())
+        } else {
+            requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
+        }
+
         orientationEventListener.checkDetectOrientation()
 
     }
@@ -73,6 +78,7 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
             REQUEST_PERMISSION_FOR_GET_LAST_PHOTO -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     setPreviewLastPhoto(getPathLastPhoto())
+                } else {
                 }
                 return
             }
@@ -144,6 +150,7 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
     override fun showEmptyGalleryToast() {
         toast(getString(R.string.empty_gallery))
     }
+
     override fun showPhotoSavedToast(path: String) {
         toast(getString(R.string.photo_saved, path))
     }
@@ -198,18 +205,12 @@ class CameraActivity : BaseActivity(), CameraContract.View, View.OnClickListener
     }
 
     override fun getPathLastPhoto(): String? {
-
-        if (isPermissionGranted(PERMISSION_WRITE_EXTERNAL_STORAGE)) {
-            if (File(Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_PICTURES), "Camera").listFiles() != null &&
-                    !File(Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_PICTURES), "Camera").listFiles().isEmpty()) {
-                return File(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_PICTURES), "Camera").listFiles()?.last()?.absolutePath
-            }
-        } else {
-            requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
+        if (getListFiles() != null &&
+                !getListFiles().isEmpty()) {
+            return getSortedByNameListFiles().first().absolutePath
         }
+        requestPermission(PERMISSION_WRITE_EXTERNAL_STORAGE, REQUEST_PERMISSION_FOR_GET_LAST_PHOTO)
+
         return null
     }
 

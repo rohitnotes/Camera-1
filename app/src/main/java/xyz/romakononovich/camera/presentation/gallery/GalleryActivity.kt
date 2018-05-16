@@ -60,7 +60,10 @@ class GalleryActivity : BaseActivity(),
         viewPager.setOnClickListener(this)
 
     }
+    override fun refreshListPager(list: MutableList<String>){
+        galleryAdapter?.refresh(list)
 
+    }
     override var onBarcodeDetect: (source: String) -> Unit = {
         QrCodeDialog.newInstance(it).show(supportFragmentManager, QRCODE_DIALOG)
     }
@@ -163,6 +166,11 @@ class GalleryActivity : BaseActivity(),
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.refreshList()
     }
 
     override fun onDestroy() {

@@ -14,6 +14,7 @@ class GalleryPresenter<V : GalleryContract.View>
                     private val repository: PhotoRepository,
                     private val router: Router) : BasePresenterImpl<V>(), GalleryContract.Presenter<V> {
 
+
     init {
         barcodeApi.run {
             onBarcodeDetect = {
@@ -50,6 +51,10 @@ class GalleryPresenter<V : GalleryContract.View>
     override fun start() {
         barcodeApi.initializeBarcodeDetector()
         view()?.initViewPager(repository.getListPhoto())
+    }
+
+    override fun refreshList() {
+        view()?.refreshListPager(repository.getListPhoto())
     }
 
     override fun stop() {

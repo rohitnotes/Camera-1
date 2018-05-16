@@ -33,6 +33,13 @@ class GalleryAdapter(context: Context) : PagerAdapter() {
         notifyDataSetChanged()
     }
 
+    fun refresh(list: List<String>){
+        if (list != pathsList) {
+            pathsList = list.toMutableList()
+            notifyDataSetChanged()
+        }
+    }
+
     interface ClickListener {
         fun onClickViewPager()
         fun onLastPageDelete()

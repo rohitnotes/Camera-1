@@ -2,12 +2,11 @@ package xyz.romakononovich.camera.data.api
 
 import android.content.Context
 import android.media.ExifInterface
-import android.os.Environment
 import android.text.format.DateUtils
 import android.text.format.Formatter
 import xyz.romakononovich.camera.R
 import xyz.romakononovich.camera.domain.api.PhotoRepository
-import xyz.romakononovich.camera.utils.ALBUM_NAME
+import xyz.romakononovich.camera.utils.getSortedByNameListFiles
 import java.io.File
 import java.util.*
 import javax.inject.Inject
@@ -20,8 +19,7 @@ class PhotoRepositoryImpl
     override var onGetInfo: (source: String) -> Unit = {}
 
     override fun getListPhoto(): MutableList<String> {
-        val storageDir = File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), ALBUM_NAME).listFiles().reversedArray()
+        val storageDir = getSortedByNameListFiles()
         val pathsList: MutableList<String> = ArrayList()
         for (image in storageDir) {
             pathsList.add(image.absolutePath)

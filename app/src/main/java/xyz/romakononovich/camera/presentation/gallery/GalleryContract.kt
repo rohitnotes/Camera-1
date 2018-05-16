@@ -16,6 +16,8 @@ interface GalleryContract {
 
         fun initViewPager(list: MutableList<String>)
 
+        fun refreshListPager(list: MutableList<String>)
+
         fun showCannotOpenGalleryToast()
     }
 
@@ -29,6 +31,8 @@ interface GalleryContract {
         fun sharePhoto(id: Int)
 
         fun deletePhoto(id: Int)
+
+        fun refreshList()
 
         fun start()
 

@@ -11,15 +11,23 @@ interface FaceDetectContract {
     interface View : BaseView {
         var onFaceDetect: (bitmap: Bitmap) -> Unit
 
+        var onShowLandmarks: (bitmap: Bitmap) -> Unit
+
         var onFaceDetectError: (source: String) -> Unit
 
         var onErrorNoFace: (source: String) -> Unit
 
-        fun showDetectFace()
+        fun showPhotoSavedToast(path: String)
+
+        fun closeActivity()
     }
 
     interface Presenter<V : FaceDetectContract.View> : BasePresenter<V> {
         fun startFaceDetector(path: String)
+
+        fun showLandmarks()
+
+        fun savePhoto()
 
         fun start()
 

@@ -13,6 +13,16 @@ interface FaceDetectorApi {
 
     var onErrorNoFace: (source: String) -> Unit
 
+    var onShowLandmarks: (bitmap: Bitmap) -> Unit
+
+    var onPhotoSaved: (path: String) -> Unit
+
+    var onPhotoSavedFail: () -> Unit
+
+    fun detectLandmarks()
+
+    fun savePhoto()
+
     fun start(path: String)
 
     fun stop()

@@ -26,7 +26,7 @@ android {
         versionName globalConf.versionName
         vectorDrawables.useSupportLibrary = true
         manifestPlaceholders = [fabric_io_id: keys.KEY_FABRIC]
-        resConfigs "en"
+        resConfigs "en", "ru"
 
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -49,7 +49,7 @@ android {
 //        abi {
 //            enable true
 //            reset()
-//            include "x86", "x86_64"
+//            include "x86_64"
 //        }
 //    }
 }

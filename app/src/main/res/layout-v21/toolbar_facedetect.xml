@@ -17,7 +17,7 @@
             android:layout_width="?android:attr/actionBarSize"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:gravity="end"
             android:onClick="onClick"
             app:srcCompat="@drawable/ic_eye"

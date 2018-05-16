@@ -2,10 +2,12 @@ package xyz.romakononovich.camera.utils
 
 import android.content.Context
 import android.os.Build
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.view.animation.RotateAnimation
 import android.widget.Toast
+import java.io.File
 
 /**
  * Created by RomanK on 05.05.18.
@@ -40,6 +42,12 @@ fun View.startRotate(rotateAnimation: RotateAnimation) {
 
 
 }
+
+fun getSortedByNameListFiles() = getListFiles().sortedWith(Comparator<File> { p0, p1 -> p0.name.compareTo(p1.name) }).reversed()
+
+fun getListFiles() = File(Environment.getExternalStoragePublicDirectory(
+        Environment.DIRECTORY_PICTURES), ALBUM_NAME).listFiles()
+
 
 fun RotateOrientationEventListener.checkDetectOrientation() {
     if (this.canDetectOrientation()) {

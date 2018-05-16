@@ -2,6 +2,7 @@ package xyz.romakononovich.camera.presentation.facedetect
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.View
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_facedetect.*
 import kotlinx.android.synthetic.main.toolbar_facedetect.*
@@ -17,7 +18,26 @@ import javax.inject.Inject
  * Created by RomanK on 12.05.18.
  */
 class FaceDetectActivity : BaseActivity(),
-        FaceDetectContract.View {
+        FaceDetectContract.View, View.OnClickListener {
+
+
+    override var onShowLandmarks: (bitmap: Bitmap) -> Unit = {
+        Glide.with(this)
+                .load(it)
+                .into(ivFaceDetect)
+    }
+
+    override fun onClick(view: View?) {
+        when (view) {
+           btnEye -> {
+               presenter.showLandmarks()
+               fab.show()
+           }
+           fab -> {
+               presenter.savePhoto()
+           }
+        }
+    }
 
     @Inject
     lateinit var presenter: FaceDetectPresenter<FaceDetectContract.View>
@@ -56,9 +76,12 @@ class FaceDetectActivity : BaseActivity(),
         finish()
     }
 
+    override fun showPhotoSavedToast(path: String) {
+        toast(getString(R.string.photo_saved, path))
+    }
 
-    override fun showDetectFace() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun closeActivity() {
+        finish()
     }
 
     override fun getResLayout(): Int {
