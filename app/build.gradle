@@ -34,10 +34,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias 'test'
-            keyPassword '123456'
+            keyAlias 'keys.keyAlias'
+            keyPassword 'keys.keyPassword'
             storeFile file('../buildsystem/test.jks')
-            storePassword '123456'
+            storePassword 'keys.storePassword'
         }
     }
         buildTypes {
