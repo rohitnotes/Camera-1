@@ -32,44 +32,53 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    signingConfigs {
         release {
-            shrinkResources true
-            minifyEnabled true
-            debuggable = false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            keyAlias 'test'
+            keyPassword '123456'
+            storeFile file('../buildsystem/test.jks')
+            storePassword '123456'
         }
     }
-}
-
-dependencies {
-    Map<String, String> dependencies = globalConf.dependencies
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation dependencies.kotlin
-    implementation dependencies.kotlinJDK7
-    implementation dependencies.appCompat
-    implementation dependencies.constrainLayout
-    implementation dependencies.customTabs
-    implementation dependencies.daggerAndroid
-    implementation dependencies.design
-    implementation dependencies.glide
-    implementation dependencies.gVision
-    implementation dependencies.firebaseAnalytics
-    implementation(dependencies.fabricCrashlitics) {
-        transitive = true
+        buildTypes {
+            release {
+                shrinkResources true
+                minifyEnabled true
+                debuggable = false
+                signingConfig signingConfigs.release
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
+        }
     }
 
-    kapt dependencies.daggerKapt
-    kapt dependencies.daggerAndroidProcessor
-    compileOnly dependencies.dagger
-    annotationProcessor dependencies.glide
-    testImplementation dependencies.junit
-    androidTestImplementation(dependencies.espresso) {
-        exclude group: 'com.android.support', module: 'support-annotations'
+    dependencies {
+        Map<String, String> dependencies = globalConf.dependencies
+
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+        implementation dependencies.kotlin
+        implementation dependencies.kotlinJDK7
+        implementation dependencies.appCompat
+        implementation dependencies.constrainLayout
+        implementation dependencies.customTabs
+        implementation dependencies.daggerAndroid
+        implementation dependencies.design
+        implementation dependencies.glide
+        implementation dependencies.gVision
+        implementation dependencies.firebaseAnalytics
+        implementation(dependencies.fabricCrashlitics) {
+            transitive = true
+        }
+
+        kapt dependencies.daggerKapt
+        kapt dependencies.daggerAndroidProcessor
+        compileOnly dependencies.dagger
+        annotationProcessor dependencies.glide
+        testImplementation dependencies.junit
+        androidTestImplementation(dependencies.espresso) {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        }
     }
-}
 
 
-apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.gms.google-services'
