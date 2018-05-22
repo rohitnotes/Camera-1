@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "460238797957",
+    "firebase_url": "https://camera-cc227.firebaseio.com",
+    "project_id": "camera-cc227",
+    "storage_bucket": "camera-cc227.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460238797957:android:05b8b854b1396273",
+        "android_client_info": {
+          "package_name": "xyz.romakononovich.camera"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460238797957-shdcdr16coguoqokehiaifq8h3kgv6kc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.romakononovich.camera",
+            "certificate_hash": "8c3c9f9e7d555989839408fee1cb640c118e3640"
+          }
+        },
+        {
+          "client_id": "460238797957-9im78o70jclt7hcjck6rjtfr63uul130.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAUTMedvoE2fEPRjOzH7EREs-Ysv-3dRw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460238797957-9im78o70jclt7hcjck6rjtfr63uul130.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
